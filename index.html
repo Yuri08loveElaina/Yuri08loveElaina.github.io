@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Yuri08 - Hacker Profile</title>
+  <link href="https://files.catbox.moe/755fgv.png" rel="stylesheet" />
+  <style>
+    /* ----- BODY & BACKGROUND ----- */
+    body {
+      transition: background 0.5s, color 0.5s;
+      font-family: 'Courier New', Courier, monospace;
+      overflow-x: hidden;
+      background: #f3f4f6;
+      color: #1f2937;
+    }
+    .dark body {
+      background: #111827;
+      color: #d1d5db;
+    }
+
+    /* ----- FADE IN ANIMATION ----- */
+    .fade-in {
+      animation: fadeIn 1s ease-in-out forwards;
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* ----- VIDEO BACKGROUND ----- */
+    video#bg-video {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: 0;
+      filter: brightness(0.6);
+    }
+
+    /* ----- OVERLAY ----- */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(5px);
+      z-index: 1;
+    }
+
+    /* ----- MAIN CONTAINER ----- */
+    .container {
+      position: relative;
+      z-index: 10;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1rem;
+      background: rgba(255 255 255 / 0.85);
+      border-radius: 1rem;
+      box-shadow: 0 0 20px rgb(128 90 213 / 0.5);
+      text-align: center;
+      transition: background 0.5s;
+    }
+    .dark .container {
+      background: rgba(17 24 39 / 0.85);
+    }
+
+    /* ----- AVATAR ----- */
+    .avatar {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 5px solid #8b5cf6;
+      box-shadow: 0 0 15px #8b5cf6;
+      margin: 0 auto 1.25rem auto;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .avatar:hover {
+      transform: scale(1.05) rotate(5deg);
+      box-shadow: 0 0 30px #a78bfa;
+    }
+
+    /* ----- HEADINGS ----- */
+    h1 {
+      font-size: 3rem;
+      font-weight: 900;
+      color: #7c3aed;
+      margin-bottom: 0.5rem;
+      user-select: none;
+    }
+    .dark h1 {
+      color: #a78bfa;
+    }
+    h2 {
+      font-size: 1.75rem;
+      color: #7c3aed;
+      margin-bottom: 1rem;
+      user-select: none;
+    }
+    .dark h2 {
+      color: #a78bfa;
+    }
+
+    /* ----- TYPING EFFECT TEXT ----- */
+    #typed {
+      font-size: 1.25rem;
+      font-style: italic;
+      color: #4b5563;
+      min-height: 2rem;
+      margin-bottom: 1.5rem;
+      user-select: none;
+    }
+    .dark #typed {
+      color: #c7d2fe;
+    }
+
+    /* ----- SKILLS GRID ----- */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+      user-select: none;
+    }
+    .skill-item {
+      background: #e0e7ff;
+      padding: 1rem 1.25rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 0 8px rgb(124 58 237 / 0.4);
+      font-weight: 600;
+      color: #5b21b6;
+      cursor: default;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      user-select: none;
+    }
+    .skill-item:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px rgb(167 139 250 / 0.8);
+      color: #7c3aed;
+      background: #d8b4fe;
+    }
+    .dark .skill-item {
+      background: #312e81;
+      color: #c4b5fd;
+      box-shadow: 0 0 8px rgb(167 139 250 / 0.4);
+    }
+    .dark .skill-item:hover {
+      background: #7c3aed;
+      color: white;
+      box-shadow: 0 0 20px #d8b4fe;
+    }
+
+    /* ----- SOCIAL MEDIA LINKS ----- */
+    .social-links {
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      font-weight: 600;
+    }
+    .social-links a {
+      color: #7c3aed;
+      text-decoration: none;
+      transition: color 0.3s;
+      user-select: none;
+    }
+    .social-links a:hover {
+      color: #d8b4fe;
+      text-decoration: underline;
+    }
+    .dark .social-links a {
+      color: #a78bfa;
+    }
+    .dark .social-links a:hover {
+      color: #ede9fe;
+    }
+
+    /* ----- FOOTER ----- */
+    footer {
+      font-size: 0.875rem;
+      color: #6b7280;
+      user-select: none;
+    }
+    .dark footer {
+      color: #9ca3af;
+    }
+
+    /* ----- BUTTONS ----- */
+    button.toggle-btn {
+      position: fixed;
+      top: 1rem;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 0.5rem;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgb(124 58 237 / 0.5);
+      transition: background-color 0.3s;
+      user-select: none;
+      z-index: 20;
+    }
+    button#themeToggle {
+      right: 1rem;
+      background-color: #7c3aed;
+    }
+    button#themeToggle:hover {
+      background-color: #6d28d9;
+    }
+    button#musicToggle {
+      left: 1rem;
+      background-color: #10b981;
+    }
+    button#musicToggle:hover {
+      background-color: #059669;
+    }
+    button#unlockBtn {
+      background-color: #ef4444;
+      margin-top: 1rem;
+      width: 100%;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 8px rgb(239 68 68 / 0.5);
+    }
+    button#unlockBtn:hover {
+      background-color: #b91c1c;
+    }
+
+    /* ----- MARQUEE ----- */
+    marquee {
+      color: #dc2626;
+      font-weight: 700;
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      user-select: none;
+    }
+
+    /* ----- TERMINAL CONSOLE ----- */
+    #terminal {
+      background: #111827;
+      color: #10b981;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1rem;
+      padding: 1rem 1.5rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 0 15px #10b981aa;
+      max-height: 180px;
+      overflow-y: auto;
+      text-align: left;
+      user-select: text;
+      margin: 2rem auto 1rem auto;
+      width: 100%;
+      max-width: 700px;
+      white-space: pre-wrap;
+    }
+
+    /* ----- CLOCK ----- */
+    #clock {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-top: 1.5rem;
+      user-select: none;
+      color: #7c3aed;
+    }
+    .dark #clock {
+      color: #a78bfa;
+    }
+
+    /* ----- USER INFO ----- */
+    #userInfo {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      font-family: monospace;
+      color: #4b5563;
+      user-select: none;
+    }
+    .dark #userInfo {
+      color: #c7d2fe;
+    }
+
+    /* ----- QUIZ ----- */
+    #quizContainer {
+      background: #e0e7ff;
+      border-radius: 0.75rem;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 0 15px rgb(124 58 237 / 0.5);
+      max-width: 700px;
+      margin: 2rem auto;
+      text-align: left;
+      user-select: none;
+      color: #5b21b6;
+    }
+    .dark #quizContainer {
+      background: #312e81;
+      color: #c4b5fd;
+    }
+    #quizContainer h3 {
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+    #quizContainer button {
+      background: #7c3aed;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.4rem 0.8rem;
+      margin: 0.25rem 0.5rem 0 0;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s;
+      user-select: none;
+    }
+    #quizContainer button:hover {
+      background: #a78bfa;
+    }
+    #quizContainer .hidden {
+      display: none;
+    }
+
+    /* ----- SNOWFALL CANVAS ----- */
+    #snowfall {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 15;
+      user-select: none;
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Mật khẩu mở khóa -->
+  <div id="lockScreen" class="fixed inset-0 flex flex-col items-center justify-center bg-black bg-opacity-90 z-50 text-white p-4">
+    <h2 class="text-3xl mb-6">Nhập mật khẩu để truy cập</h2>
+    <input id="passwordInput" type="password" placeholder="Mật khẩu" class="p-2 rounded text-black w-64 text-center mb-4" />
+    <button id="unlockBtn" class="toggle-btn">Mở khóa</button>
+    <p id="lockMsg" class="mt-2 text-red-500"></p>
+  </div>
+
+  <!-- Video nền -->
+  <video id="bg-video" autoplay muted loop playsinline>
+    <source src="https://files.catbox.moe/zg3mfk.mp4" type="video/mp4" />
+  </video>
+  <div class="overlay"></div>
+
+  <!-- Tuyết rơi canvas -->
+  <canvas id="snowfall"></canvas>
+
+  <!-- Toggle Dark mode -->
+  <button id="themeToggle" class="toggle-btn" title="Chuyển chế độ tối/sáng">Chế độ Tối</button>
+
+  <!-- Toggle Nhạc nền -->
+  <button id="musicToggle" class="toggle-btn" title="Bật/tắt nhạc nền">Nhạc Bật</button>
+
+  <!-- Main content -->
+  <div class="container fade-in" style="margin-top: 2rem;">
+
+    <!-- Avatar -->
+    <img
+      src="https://files.catbox.moe/755fgv.png"
+      alt="Elaina"
+      class="avatar"
+      draggable="false"
+    />
+
+    <!-- Tên -->
+    <h1>Yuri08</h1>
+
+    <!-- Hiệu ứng chữ gõ -->
+    <div id="typed"></div>
+
+    <!-- Marquee cảnh báo -->
+    <marquee behavior="scroll" direction="left" scrollamount="10">⚠️ Chú ý: Đây là trang giới thiệu giả lập dành cho hacker. Vui lòng không sử dụng vào mục đích xấu! ⚠️</marquee>
+
+    <!-- Kỹ năng -->
+    <h2>Kỹ năng nổi bật</h2>
+    <div class="skills-grid" id="skillsList">
+      <div class="skill-item">Burp Suite</div>
+      <div class="skill-item">Nmap</div>
+      <div class="skill-item">SQL Injection</div>
+      <div class="skill-item">XSS</div>
+      <div class="skill-item">Metasploit</div>
+      <div class="skill-item">Wireshark, Hydra, JohnTheRipper</div>
+      <div class="skill-item">Social Engineering</div>
+      <div class="skill-item">OSINT & Recon</div>
+    </div>
+
+    <!-- Social media -->
+    <div class="social-links">
+      <a href="https://github.com/Yuri08loveElaina" target="_blank" rel="noopener" title="GitHub">GitHub</a>
+      <a href="https://twitter.com/Yuri08" target="_blank" rel="noopener" title="Twitter">Twitter</a>
+      <a href="https://www.linkedin.com/in/yuri08" target="_blank" rel="noopener" title="LinkedIn">LinkedIn</a>
+      <a href="mailto:nammoleong@gmail.com" title="Email">Email</a>
+    </div>
+
+    <!-- Tải CV -->
+    <a href="https://example.com/Yuri08_CV.pdf" download class="skill-item" style="display:inline-block; width:auto; cursor:pointer;">
+      Tải CV
+    </a>
+
+    <!-- Đồng hồ -->
+    <div id="clock" aria-live="polite" aria-atomic="true" role="timer" tabindex="0"></div>
+
+    <!-- Thông tin người dùng -->
+    <div id="userInfo" aria-live="polite" tabindex="0">Đang lấy thông tin người dùng...</div>
+
+    <!-- Terminal giả lập -->
+    <pre id="terminal" aria-live="polite" tabindex="0"></pre>
+
+    <!-- Quiz kiểm tra kiến thức -->
+    <div id="quizContainer">
+      <h3>Quiz Hacker - Kiểm tra kiến thức của bạn</h3>
+      <p id="quizQuestion"></p>
+      <div id="quizAnswers"></div>
+      <p id="quizResult"></p>
+      <button id="quizNext" class="hidden">Câu tiếp theo</button>
+    </div>
+
+    <!-- Footer -->
+    <footer>© 2025 Yuri08. All rights reserved.</footer>
+  </div>
+
+  <!-- Nhạc nền (ẩn) -->
+  <audio id="backgroundMusic" loop>
+    <source src="https://files.catbox.moe/btinl3.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script>
+    // ==== LOCK SCREEN ====
+    const lockScreen = document.getElementById('lockScreen');
+    const passwordInput = document.getElementById('passwordInput');
+    const unlockBtn = document.getElementById('unlockBtn');
+    const lockMsg = document.getElementById('lockMsg');
+
+    const correctPassword = 'Yuri08Hack'; // Mật khẩu
+
+    unlockBtn.addEventListener('click', () => {
+      if (passwordInput.value === correctPassword) {
+        lockScreen.style.display = 'none';
+      } else {
+        lockMsg.textContent = 'Sai mật khẩu, thử lại!';
+        passwordInput.value = '';
+      }
+    });
+    passwordInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') unlockBtn.click();
+    });
+
+    // ==== DARK/LIGHT MODE TOGGLE ====
+    const themeToggle = document.getElementById('themeToggle');
+    let dark = false;
+    themeToggle.addEventListener('click', () => {
+      dark = !dark;
+      document.documentElement.classList.toggle('dark', dark);
+      themeToggle.textContent = dark ? 'Chế độ Sáng' : 'Chế độ Tối';
+    });
+
+    // ==== BACKGROUND MUSIC TOGGLE ====
+    const musicToggle = document.getElementById('musicToggle');
+    const bgMusic = document.getElementById('backgroundMusic');
+    let musicPlaying = false;
+    musicToggle.addEventListener('click', () => {
+      if (musicPlaying) {
+        bgMusic.pause();
+        musicToggle.textContent = 'Nhạc Bật';
+      } else {
+        bgMusic.play();
+        musicToggle.textContent = 'Nhạc Tắt';
+      }
+      musicPlaying = !musicPlaying;
+    });
+
+    // ==== TYPING EFFECT ====
+    const typedEl = document.getElementById('typed');
+    const phrases = [
+      'Hacker bí ẩn với kỹ năng bảo mật đỉnh cao.',
+      'Chuyên gia khai thác SQL Injection và XSS.',
+      'Sử dụng Burp Suite, Nmap, Metasploit thành thạo.',
+      'Thích hợp tác và chia sẻ kiến thức hacking.'
+    ];
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let typingDelay = 80;
+    let erasingDelay = 40;
+    let newPhraseDelay = 2000;
+
+    function type() {
+      if (charIndex < phrases[phraseIndex].length) {
+        typedEl.textContent += phrases[phraseIndex].charAt(charIndex);
+        charIndex++;
+        setTimeout(type, typingDelay);
+      } else {
+        setTimeout(erase, newPhraseDelay);
+      }
+    }
+    function erase() {
+      if (charIndex > 0) {
+        typedEl.textContent = phrases[phraseIndex].substring(0, charIndex - 1);
+        charIndex--;
+        setTimeout(erase, erasingDelay);
+      } else {
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        setTimeout(type, typingDelay);
+      }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      if (phrases.length) setTimeout(type, newPhraseDelay);
+    });
+
+    // ==== CLOCK ====
+    const clockEl = document.getElementById('clock');
+    function updateClock() {
+      const now = new Date();
+      const h = now.getHours().toString().padStart(2, '0');
+      const m = now.getMinutes().toString().padStart(2, '0');
+      const s = now.getSeconds().toString().padStart(2, '0');
+      clockEl.textContent = `🕒 ${h}:${m}:${s}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // ==== FETCH USER INFO ====
+    const userInfoEl = document.getElementById('userInfo');
+    fetch('https://ipapi.co/json/')
+      .then(res => res.json())
+      .then(data => {
+        userInfoEl.textContent = `🌍 IP: ${data.ip} - Quốc gia: ${data.country_name} - Thành phố: ${data.city} - Trình duyệt: ${navigator.userAgent}`;
+      })
+      .catch(() => {
+        userInfoEl.textContent = 'Không thể lấy thông tin người dùng.';
+      });
+
+    // ==== TERMINAL SIMULATOR ====
+    const terminalEl = document.getElementById('terminal');
+    const terminalLines = [
+      'Welcome to Yuri08 terminal...',
+      'Initializing...',
+      'Loading hacking tools...',
+      'Burp Suite [OK]',
+      'Nmap [OK]',
+      'SQL Injection ready...',
+      'XSS scripts loaded...',
+      'Metasploit framework active...',
+      'Ready for commands.'
+    ];
+    let terminalIndex = 0;
+    function runTerminal() {
+      if (terminalIndex < terminalLines.length) {
+        terminalEl.textContent += terminalLines[terminalIndex] + '\n';
+        terminalIndex++;
+        terminalEl.scrollTop = terminalEl.scrollHeight;
+        setTimeout(runTerminal, 1000);
+      }
+    }
+    runTerminal();
+
+    // ==== SNOWFALL EFFECT ====
+    const canvas = document.getElementById('snowfall');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    function resizeCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Snowflake {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.radius = Math.random() * 3 + 1;
+        this.speed = Math.random() * 1 + 0.5;
+        this.wind = Math.random() * 0.5 - 0.25;
+      }
+      update() {
+        this.y += this.speed;
+        this.x += this.wind;
+        if (this.y > height) {
+          this.y = 0;
+          this.x = Math.random() * width;
+        }
+        if (this.x > width) this.x = 0;
+        if (this.x < 0) this.x = width;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.fillStyle = 'white';
+        ctx.shadowColor = '#aaa';
+        ctx.shadowBlur = 5;
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    const snowflakes = [];
+    for (let i = 0; i < 120; i++) {
+      snowflakes.push(new Snowflake());
+    }
+    function animateSnow() {
+      ctx.clearRect(0, 0, width, height);
+      snowflakes.forEach(flake => {
+        flake.update();
+        flake.draw();
+      });
+      requestAnimationFrame(animateSnow);
+    }
+    animateSnow();
+
+    // ==== QUIZ FUNCTIONALITY ====
+    const quizData = [
+      {
+        question: 'SQL Injection là gì?',
+        answers: [
+          'Một kỹ thuật tấn công bằng cách chèn mã SQL độc hại',
+          'Một công cụ quét mạng',
+          'Phần mềm diệt virus',
+          'Một loại firewall'
+        ],
+        correct: 0
+      },
+      {
+        question: 'Burp Suite được dùng để làm gì?',
+        answers: [
+          'Phát triển phần mềm',
+          'Phân tích và kiểm thử bảo mật web',
+          'Thiết kế giao diện',
+          'Lưu trữ dữ liệu'
+        ],
+        correct: 1
+      },
+      {
+        question: 'XSS viết tắt của từ nào?',
+        answers: [
+          'Cross Site Scripting',
+          'Cross Server Security',
+          'Cross System Scan',
+          'Cross Site Security'
+        ],
+        correct: 0
+      },
+      {
+        question: 'Nmap là công cụ dùng để?',
+        answers: [
+          'Tấn công mạng',
+          'Quét mạng và phát hiện thiết bị',
+          'Phân tích mã độc',
+          'Mã hóa dữ liệu'
+        ],
+        correct: 1
+      }
+    ];
+    let currentQuiz = 0;
+    const quizQuestion = document.getElementById('quizQuestion');
+    const quizAnswers = document.getElementById('quizAnswers');
+    const quizResult = document.getElementById('quizResult');
+    const quizNext = document.getElementById('quizNext');
+
+    function loadQuiz() {
+      quizResult.textContent = '';
+      quizNext.classList.add('hidden');
+      const q = quizData[currentQuiz];
+      quizQuestion.textContent = q.question;
+      quizAnswers.innerHTML = '';
+      q.answers.forEach((answer, i) => {
+        const btn = document.createElement('button');
+        btn.textContent = answer;
+        btn.addEventListener('click', () => {
+          if (i === q.correct) {
+            quizResult.textContent = 'Chính xác! 🎉';
+            quizResult.style.color = '#059669';
+          } else {
+            quizResult.textContent = 'Sai rồi! 😞 Đáp án đúng là: ' + q.answers[q.correct];
+            quizResult.style.color = '#b91c1c';
+          }
+          quizNext.classList.remove('hidden');
+          // disable all answer buttons
+          Array.from(quizAnswers.children).forEach(b => b.disabled = true);
+        });
+        quizAnswers.appendChild(btn);
+      });
+    }
+
+    quizNext.addEventListener('click', () => {
+      currentQuiz++;
+      if (currentQuiz >= quizData.length) {
+        quizQuestion.textContent = 'Bạn đã hoàn thành quiz!';
+        quizAnswers.innerHTML = '';
+        quizResult.textContent = '';
+        quizNext.classList.add('hidden');
+      } else {
+        loadQuiz();
+      }
+    });
+
+    loadQuiz();
+
+  </script>
+</body>
+</html>
+      quizNext.classList.add('hidden');
+      } else {
+        loadQuiz();
+      }
+    });
+
+    loadQuiz();
+
+  </script>
+</body>
+</html>
