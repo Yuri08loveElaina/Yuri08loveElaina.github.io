@@ -1,0 +1,42 @@
+.about-page {
+  padding: 2rem 1rem;
+  max-width: 800px;
+  margin: auto;
+  line-height: 1.7;
+}
+
+.about-page h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+}
+
+.about-intro p {
+  margin-bottom: 1rem;
+}
+
+.about-core h2,
+.about-contact h2 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  color: var(--primary);
+}
+
+.about-core ul {
+  padding-left: 1.5rem;
+  list-style-type: disc;
+}
+
+.about-contact a {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.dark .about-page {
+  color: #ddd;
+}
+
+.dark .about-contact a {
+  color: #9cf;
+}
