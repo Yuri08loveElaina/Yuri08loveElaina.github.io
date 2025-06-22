@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import useDarkMode from "./useDarkMode";
+import "../styles/Navbar.css";
 
 export default function Navbar() {
   const [darkMode, toggleDarkMode] = useDarkMode();
