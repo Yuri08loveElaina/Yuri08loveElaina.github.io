@@ -103,5 +103,11 @@ export default function Register() {
         </button>
       </form>
     </div>
-  );
-}
+  return 
+    <div className="register-container">
+      <form className="register-form" onSubmit={handleSubmit}>
+        <h2>Đăng ký tài khoản</h2>
+        {/* ... các input ... */}
+        <button type="submit" className="btn-submit">Đăng ký</button>
+      </form>
+      <p className="switch-link">         Đã có tài khoản?{" "}         <Link to="/login">Đăng nhập tại đây</Link>       </p>     </div>    ); }
