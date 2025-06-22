@@ -1,16 +1,16 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Dashboard from "./components/pages/Dashboard";
-import Login from "./components/pages/Login";
-import Register from "./components/pages/Register";
-import Writeup from "./components/pages/Writeup";
-import Blog from "./components/pages/Blog";
+import Dashboard from "./components/pages/Dashboard.jsx";
+import Login from "./components/pages/Login.jsx";
+import Register from "./components/pages/Register.jsx";
+import Writeup from "./components/pages/Writeup.jsx";
+import Blog from "./components/pages/Blog.jsx";
 import Member from "./components/pages/MemberPage.jsx";
 import About from "./components/pages/About.jsx";
 import NotFound from "./components/pages/404.jsx";
-import { DarkModeProvider } from "./context/RealtimeContext.js";hook
-useDarkMode.js
+import { DarkModeProvider } from "./hook/useDarkMode.js";
+
 import "./App.css";
 
 function App() {
