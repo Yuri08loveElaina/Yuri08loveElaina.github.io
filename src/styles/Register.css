@@ -42,6 +42,22 @@
   font-size: 1rem;
   transition: border-color 0.3s;
 }
+.switch-link {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+  color: #444;
+}
+
+.switch-link a {
+  color: #7c3aed;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.switch-link a:hover {
+  text-decoration: underline;
+}
 
 .register-form input[type="text"]:focus,
 .register-form input[type="email"]:focus,
