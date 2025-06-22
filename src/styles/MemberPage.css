@@ -1,144 +1,144 @@
-/* === MEMBER PAGE BASE === */
-.member-page {
+.member-page.container {
   padding: 2rem;
-  max-width: 1200px;
-  margin: auto;
-}
-.dark .member-page {
-  background-color: #111827;
-  color: #e5e7eb;
+  max-width: 1000px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #111827;
+  background-color: #f9fafb;
+  min-height: 100vh;
 }
 
-/* === FILTER & SEARCH === */
-.member-controls {
+.member-page h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.controls {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 1rem;
   margin-bottom: 1.5rem;
-  justify-content: space-between;
-}
-.member-controls input[type="text"],
-.member-controls select {
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  border: 2px solid #d1d5db;
-  background: #fff;
-  font-size: 1rem;
-}
-.member-controls input[type="text"]:focus,
-.member-controls select:focus {
-  outline: none;
-  border-color: #7c3aed;
-}
-.dark .member-controls input,
-.dark .member-controls select {
-  background: #1f2937;
-  color: #e5e7eb;
-  border-color: #374151;
 }
 
-/* === MEMBER GRID === */
-.member-grid {
+.controls select,
+.controls .search-input {
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1.5px solid #d1d5db;
+  transition: border-color 0.25s ease;
+}
+
+.controls select:focus,
+.controls .search-input:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 5px rgba(79, 70, 229, 0.5);
+  background-color: white;
+}
+
+.member-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 1.5rem;
 }
 
-/* === CARD === */
 .member-card {
-  background-color: #ffffff;
-  padding: 1.25rem;
-  border-radius: 0.75rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background-color: white;
+  border-radius: 12px;
+  padding: 1rem;
   cursor: pointer;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.05);
+  transition: box-shadow 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
-.member-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.2);
-}
-.dark .member-card {
-  background-color: #1f2937;
-  box-shadow: 0 2px 12px rgba(255, 255, 255, 0.05);
-}
-.dark .member-card:hover {
-  box-shadow: 0 4px 20px rgba(167, 139, 250, 0.15);
+
+.member-card:hover,
+.member-card:focus {
+  box-shadow: 0 8px 24px rgb(79 70 229 / 0.3);
+  outline: none;
 }
 
 .member-avatar {
-  width: 70px;
-  height: 70px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 0.75rem;
-  border: 3px solid #7c3aed;
-}
-.dark .member-avatar {
-  border-color: #c4b5fd;
+  border: 2px solid #4f46e5;
 }
 
-.member-name {
-  font-size: 1.1rem;
+.member-info h2 {
+  margin: 0;
+  font-size: 1.25rem;
   font-weight: 700;
-  margin-bottom: 0.25rem;
-  color: #1f2937;
-}
-.dark .member-name {
-  color: #e5e7eb;
+  color: #3730a3;
 }
 
 .member-role {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: #6b7280;
-}
-.dark .member-role {
-  color: #9ca3af;
+  margin-top: 0.2rem;
 }
 
-/* === MODAL === */
-.member-modal-overlay {
+/* Modal */
+.modal-overlay {
   position: fixed;
-  top: 0; left: 0;
-  right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.65);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(30, 30, 47, 0.9);
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 999;
+  align-items: center;
+  z-index: 100;
 }
-.member-modal {
-  background: #ffffff;
+
+.modal-content {
+  background-color: white;
   padding: 2rem;
-  border-radius: 1rem;
-  max-width: 500px;
-  width: 100%;
-  text-align: center;
-  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  position: relative;
+  color: #111827;
+  box-shadow: 0 0 15px rgba(0,0,0,0.25);
 }
-.dark .member-modal {
-  background: #1f2937;
-  color: #f3f4f6;
-}
-.member-modal h3 {
-  margin-top: 1rem;
-  font-size: 1.4rem;
-}
-.member-modal p {
-  margin: 0.5rem 0;
-}
-.member-modal a {
-  color: #7c3aed;
-  font-weight: 600;
-}
-.member-modal button {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  background-color: #7c3aed;
-  color: white;
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: transparent;
   border: none;
-  border-radius: 0.5rem;
+  font-size: 2rem;
+  line-height: 1;
   cursor: pointer;
+  color: #4f46e5;
 }
-.member-modal button:hover {
-  background-color: #6d28d9;
+
+.modal-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto 1rem auto;
+  object-fit: cover;
+  border: 3px solid #4f46e5;
+}
+
+.modal-content h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #3730a3;
+}
+
+.modal-content p {
+  margin: 0.4rem 0;
+  font-size: 1rem;
 }
