@@ -6,10 +6,11 @@ import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
 import Writeup from "./components/pages/Writeup";
 import Blog from "./components/pages/Blog";
-import Member from "./components/pages/Member";
+import Member from "./components/pages/MemberPage.jsx";
 import About from "./components/pages/About.jsx";
-import NotFound from "./components/pages/NotFound";
-import { DarkModeProvider } from "./context/useDarkMode";
+import NotFound from "./components/pages/404.jsx";
+import { DarkModeProvider } from "./context/RealtimeContext.js";hook
+useDarkMode.js
 import "./App.css";
 
 function App() {
