@@ -51,5 +51,17 @@ export default function Login() {
         </button>
       </form>
     </div>
-  );
+return (
+    <div className="login-container">
+      <form className="login-form" onSubmit={handleSubmit}>
+        <h2>Đăng nhập</h2>
+        {/* ... các input ... */}
+        <button type="submit" className="btn-submit">Đăng nhập</button>
+      </form>
+
+      <p className="switch-link">
+        Chưa có tài khoản?{" "}
+        <Link to="/register">Đăng ký ngay</Link>
+      </p>
+    </div>  );
 }
