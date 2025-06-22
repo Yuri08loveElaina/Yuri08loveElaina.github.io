@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <link rel="stylesheet" href="style.css" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>YURI08 - ELAINA CORE</title>
-  <link href="https://files.catbox.moe/755fgv.png" rel="stylesheet" />
-  <link rel="icon" href="https://files.catbox.moe/755fgv.png" />
+   <title>Yuri08 - ELAINA CORE</title>
+    <link rel="icon" href="https://files.catbox.moe/755fgv.png" />
+    <link rel="stylesheet" href="/styles/index.css" />
+   <link rel="stylesheet" href="style.css" />
+   <script type="module" src="/src/main.jsx"></script>
   <style>
     body {
       font-family: 'Courier New', Courier, monospace;
@@ -19,7 +20,6 @@
       background: #111827;
       color: #d1d5db;
     }
-    /* Các style khác giữ nguyên như phần bạn gửi ở trên */
   </style>
 </head>
 <body>
@@ -47,11 +47,14 @@
 
     <h2>Chức năng chính</h2>
     <div class="skills-grid">
-      <div class="skill-item"><a href="/login" style="color:inherit; text-decoration:none;">🔐 Đăng nhập</a></div>
-      <div class="skill-item"><a href="/dashboard" style="color:inherit; text-decoration:none;">📊 Dashboard</a></div>
-      <div class="skill-item"><a href="/writeup" style="color:inherit; text-decoration:none;">📜 Write-up</a></div>
-      <div class="skill-item"><a href="/blog" style="color:inherit; text-decoration:none;">📝 Nhật ký nhóm</a></div>
-      <div class="skill-item"><a href="/member" style="color:inherit; text-decoration:none;">👥 Thành viên</a></div>
+     <div class="skill-item"><a href="src/components/pages/IndexElainaCore.jsx" style="color:inherit; text-decoration:none;"></Home></div>
+      <div class="skill-item"><a href="src/components/pages/dashboard" style="color:inherit; text-decoration:none;">/Dashboard</a></div>
+      <div class="skill-item"><a href="src/components/pages/writeup" style="color:inherit; text-decoration:none;">/Write-up</a></div>
+      <div class="skill-item"><a href="src/components/pages/Blog.jsx" style="color:inherit; text-decoration:none;">/Blog</a></div>
+      <div class="skill-item"><a href="src/components/pages/MemberPage.jsx" style="color:inherit; text-decoration:none;">/Member</a></div>
+      <div class="skill-item"><a href="src/components/pages/About.jsx" style="color:inherit; text-decoration:none;"></About></div>
+      <div class="skill-item"><a href="src/components/pages/Register.jsx" style="color:inherit; text-decoration:none;">/Register</a></div>
+      <div class="skill-item"><a href="src/components/pages/login" style="color:inherit; text-decoration:none;">/Login</a></div>
     </div>
 
     <div class="social-links">
@@ -61,15 +64,128 @@
 
     <div id="clock"></div>
     <div id="userInfo">Đang lấy thông tin...</div>
-    <pre id="terminal"></pre>
+    <div id="root"></div>
+    const terminalEl = document.getElementById('terminal');
+    const terminalLines = [
+      'Welcome to Yuri08 terminal...',
+      'Initializing...',
+      'Loading hacking tools...',
+      'Burp Suite [OK]',
+      'Nmap [OK]',
+      'SQL Injection ready...',
+      'XSS scripts loaded...',
+      'Metasploit framework active...',
+      'Ready for commands.'
+    ];
+    let terminalIndex = 0;
+    function runTerminal() {
+      if (terminalIndex < terminalLines.length) {
+        terminalEl.textContent += terminalLines[terminalIndex] + '\n';
+        terminalIndex++;
+        terminalEl.scrollTop = terminalEl.scrollHeight;
+        setTimeout(runTerminal, 1000);
+      }
+    }
+    runTerminal();
 
     <div id="quizContainer">
-      <h3>Quiz Hacker - Kiểm tra kiến thức của bạn</h3>
-      <p id="quizQuestion"></p>
-      <div id="quizAnswers"></div>
-      <p id="quizResult"></p>
-      <button id="quizNext" class="hidden">Câu tiếp theo</button>
-    </div>
+        const quizData = [
+      {
+        question: 'SQL Injection là gì?',
+        answers: [
+          'Một kỹ thuật tấn công bằng cách chèn mã SQL độc hại',
+          'Một công cụ quét mạng',
+          'Phần mềm diệt virus',
+          'Một loại firewall'
+        ],
+        correct: 0
+      },
+      {
+        question: 'Burp Suite được dùng để làm gì?',
+        answers: [
+          'Phát triển phần mềm',
+          'Phân tích và kiểm thử bảo mật web',
+          'Thiết kế giao diện',
+          'Lưu trữ dữ liệu'
+        ],
+        correct: 1
+      },
+      {
+        question: 'XSS viết tắt của từ nào?',
+        answers: [
+          'Cross Site Scripting',
+          'Cross Server Security',
+          'Cross System Scan',
+          'Cross Site Security'
+        ],
+        correct: 0
+      },
+      {
+        question: 'Nmap là công cụ dùng để?',
+        answers: [
+          'Tấn công mạng',
+          'Quét mạng và phát hiện thiết bị',
+          'Phân tích mã độc',
+          'Mã hóa dữ liệu'
+        ],
+        correct: 1
+      }
+    ];
+    let currentQuiz = 0;
+    const quizQuestion = document.getElementById('quizQuestion');
+    const quizAnswers = document.getElementById('quizAnswers');
+    const quizResult = document.getElementById('quizResult');
+    const quizNext = document.getElementById('quizNext');
+
+    function loadQuiz() {
+      quizResult.textContent = '';
+      quizNext.classList.add('hidden');
+      const q = quizData[currentQuiz];
+      quizQuestion.textContent = q.question;
+      quizAnswers.innerHTML = '';
+      q.answers.forEach((answer, i) => {
+        const btn = document.createElement('button');
+        btn.textContent = answer;
+        btn.addEventListener('click', () => {
+          if (i === q.correct) {
+            quizResult.textContent = 'Chính xác! 🎉';
+            quizResult.style.color = '#059669';
+          } else {
+            quizResult.textContent = 'Sai rồi! 😞 Đáp án đúng là: ' + q.answers[q.correct];
+            quizResult.style.color = '#b91c1c';
+          }
+          quizNext.classList.remove('hidden');
+          // disable all answer buttons
+          Array.from(quizAnswers.children).forEach(b => b.disabled = true);
+        });
+        quizAnswers.appendChild(btn);
+      });
+    }
+
+    quizNext.addEventListener('click', () => {
+      currentQuiz++;
+      if (currentQuiz >= quizData.length) {
+        quizQuestion.textContent = 'Bạn đã hoàn thành quiz!';
+        quizAnswers.innerHTML = '';
+        quizResult.textContent = '';
+        quizNext.classList.add('hidden');
+      } else {
+        loadQuiz();
+      }
+    });
+
+    loadQuiz();
+
+  </script>
+</body>
+</html>
+      quizNext.classList.add('hidden');
+      } else {
+        loadQuiz();
+      }
+    });
+
+    loadQuiz();
 
     <footer>© 2025 Elaina Core. All rights reserved.</footer>
   </div>
