@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import "./Blog.css";
 const initialPosts = [
   {
     id: 1,
@@ -63,7 +63,6 @@ export default function Blog() {
         ))}
       </section>
 
-      {/* Modal hiển thị nội dung bài viết */}
       {selectedPost && (
         <div
           className="modal-overlay"
@@ -97,4 +96,3 @@ export default function Blog() {
     </main>
   );
 }
-
