@@ -91,7 +91,11 @@ export default function Navbar() {
               </NavLink>
             </li>
           </ul>
-
+           </li>
+            <NavLink
+  to="/about">About</NavLink>
+             </li>
+          </ul>
           <button
             className="dark-toggle-btn"
             onClick={toggleDarkMode}
