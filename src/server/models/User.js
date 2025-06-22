@@ -5,10 +5,10 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   name: String,
   password: { type: String, required: true },
-  role: String,
-}, { timestamps: true });
+  role: { type: String, default: 'member' },
+});
 
-// Mã hóa mật khẩu trước khi lưu
+// Hash password trước khi lưu
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
   const salt = await bcrypt.genSalt(10);
@@ -16,9 +16,9 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-// So sánh mật khẩu
-userSchema.methods.comparePassword = async function (plainPassword) {
-  return await bcrypt.compare(plainPassword, this.password);
+// So sánh mật khẩu khi login
+userSchema.methods.comparePassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
 };
 
 module.exports = mongoose.model('User', userSchema);
