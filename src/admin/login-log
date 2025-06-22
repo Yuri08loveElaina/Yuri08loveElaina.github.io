@@ -1,0 +1,4 @@
+router.get('/login-logs', requireAuth, requireAdmin, async (req, res) => {
+  const users = await User.find({}, 'email loginLogs');
+  res.json(users);
+});
