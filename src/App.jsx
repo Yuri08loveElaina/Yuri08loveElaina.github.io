@@ -11,6 +11,7 @@ import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import { DarkModeProvider } from "./context/useDarkMode";
 import "./styles/index.css";
+import "./App.css";
 
 function App() {
   const isAuthenticated = localStorage.getItem("token");
