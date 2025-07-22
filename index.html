@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Yuri08 - Hacker Profile</title>
+  <!-- Google Fonts & Bootstrap Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <style>
+    :root {
+      --main: #7c3aed;
+      --main2: #10b981;
+      --main-light: #a78bfa;
+      --bg: #181a2a;
+      --bg2: #232946;
+      --glass: rgba(40,30,80,0.85);
+      --glass-light: rgba(120,80,255,0.12);
+      --text: #e0e7ef;
+      --shadow: 0 8px 32px 0 #7c3aed33;
+      --glow: 0 0 32px 4px #7c3aed55;
+    }
+    html, body {
+      min-height: 100%;
+      margin: 0;
+      font-family: 'JetBrains Mono', monospace;
+      background: linear-gradient(135deg, #181a2a 0%, #232946 100%);
+      color: var(--text);
+      transition: background 0.5s, color 0.5s;
+      overflow-x: hidden;
+    }
+    /* Particle background */
+    #particles-js {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      top: 0; left: 0;
+      pointer-events: none;
+    }
+    /* Glass container */
+    .glass {
+      background: var(--glass);
+      box-shadow: var(--shadow), var(--glow);
+      border-radius: 1.5rem;
+      padding: 2.5rem 2rem 2rem 2rem;
+      margin: 3.5rem auto 2rem auto;
+      max-width: 900px;
+      position: relative;
+      z-index: 2;
+      border: 1.5px solid #a78bfa33;
+      backdrop-filter: blur(8px);
+      transition: background 0.5s;
+    }
+    /* Avatar */
+    .avatar {
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      border: 4px solid var(--main);
+      box-shadow: 0 0 32px var(--main-light);
+      margin-bottom: 1.2rem;
+      object-fit: cover;
+      transition: transform 0.3s;
+      background: #232946;
+    }
+    .avatar:hover { transform: scale(1.07) rotate(3deg); }
+    /* Name */
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--main);
+      margin-bottom: 0.2rem;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 16px #7c3aed55;
+    }
+    .typeit {
+      font-size: 1.2rem;
+      color: #a78bfa;
+      min-height: 2rem;
+      margin-bottom: 1.2rem;
+    }
+    /* Skills */
+    .skills {
+      display: flex; flex-wrap: wrap; gap: 0.7rem; justify-content: center; margin: 1.5rem 0;
+    }
+    .skill {
+      background: var(--glass-light);
+      color: var(--main-light);
+      border-radius: 0.7rem;
+      padding: 0.5rem 1.1rem;
+      font-weight: 600;
+      font-size: 1rem;
+      box-shadow: 0 2px 8px #a78bfa33;
+      transition: background 0.3s, color 0.3s, transform 0.2s;
+      cursor: default;
+      user-select: none;
+      border: 1px solid #7c3aed44;
+      text-shadow: 0 1px 8px #7c3aed33;
+    }
+    .skill:hover { background: #7c3aed33; color: var(--main); }
+    /* Socials */
+    .socials {
+      display: flex; gap: 1.2rem; justify-content: center; margin: 1.2rem 0 2rem 0;
+    }
+    .socials a {
+      color: var(--main-light);
+      font-size: 1.7rem;
+      transition: color 0.2s;
+      text-decoration: none;
+      filter: drop-shadow(0 0 8px #7c3aed55);
+    }
+    .socials a:hover { color: var(--main2); }
+    /* TryHackMe */
+    .tryhackme {
+      display: inline-block;
+      background: var(--main2);
+      color: #fff;
+      border-radius: 0.7rem;
+      padding: 0.5rem 1.2rem;
+      font-weight: 700;
+      margin: 1rem 0 0.5rem 0;
+      text-decoration: none;
+      transition: background 0.3s;
+      box-shadow: 0 2px 8px #10b98133;
+      letter-spacing: 1px;
+    }
+    .tryhackme:hover { background: #059669; }
+    /* Clock & Info */
+    .clock {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--main2);
+      margin: 1.2rem 0 0.5rem 0;
+      letter-spacing: 1px;
+      text-shadow: 0 1px 8px #10b98133;
+    }
+    .userinfo {
+      font-size: 0.95rem;
+      color: #a78bfa;
+      margin-bottom: 1.2rem;
+      word-break: break-all;
+      text-shadow: 0 1px 8px #7c3aed33;
+    }
+    /* Terminal Pro */
+    .terminal-pro {
+      background: linear-gradient(135deg, #232946 80%, #7c3aed22 100%);
+      color: #d1d5db;
+      font-family: 'JetBrains Mono', 'Fira Mono', 'Consolas', monospace;
+      border-radius: 1rem;
+      box-shadow: 0 8px 32px 0 #7c3aed33;
+      max-width: 700px;
+      margin: 2rem auto 1.5rem auto;
+      overflow: hidden;
+      border: 1.5px solid #312e8155;
+      min-height: 320px;
+      position: relative;
+      transition: background 0.5s;
+    }
+    .terminal-bar {
+      background: #18181b;
+      height: 2.1rem;
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+      border-bottom: 1px solid #312e8155;
+      position: relative;
+    }
+    .terminal-bar .dot {
+      width: 13px; height: 13px; border-radius: 50%; display: inline-block; margin-right: 7px;
+    }
+    .terminal-bar .red { background: #ef4444; box-shadow: 0 0 4px #ef4444aa; }
+    .terminal-bar .yellow { background: #facc15; box-shadow: 0 0 4px #facc15aa; }
+    .terminal-bar .green { background: #22c55e; box-shadow: 0 0 4px #22c55eaa; }
+    .terminal-title {
+      font-size: 1rem;
+      color: #a78bfa;
+      margin-left: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      opacity: 0.8;
+    }
+    .terminal-body {
+      padding: 1.2rem 1.2rem 1rem 1.2rem;
+      min-height: 220px;
+      max-height: 350px;
+      overflow-y: auto;
+      font-size: 1.05rem;
+      background: transparent;
+    }
+    #terminal-banner {
+      white-space: pre;
+      font-family: 'JetBrains Mono', monospace;
+      color: #a78bfa;
+      margin-bottom: 1rem;
+      user-select: text;
+    }
+    #terminal-output {
+      min-height: 90px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 1em;
+      margin-bottom: 0.2em;
+    }
+    #terminal-input-line {
+      display: flex;
+      align-items: center;
+      gap: 0.3em;
+      margin-top: 0.2em;
+    }
+    #terminal-input {
+      background: transparent;
+      border: none;
+      color: #a7f3d0;
+      outline: none;
+      font-family: inherit;
+      font-size: 1em;
+      width: 70%;
+      padding: 0.1em 0;
+    }
+    .prompt .user { color: #7c3aed; }
+    .prompt .dir { color: #10b981; }
+    .terminal-pro .cmd { color: #7c3aed; }
+    .terminal-pro .arg { color: #a78bfa; }
+    .terminal-pro .error { color: #ef4444; }
+    .terminal-pro .success { color: #10b981; }
+    .terminal-pro .info { color: #38bdf8; }
+    .terminal-pro .banner { color: #a78bfa; }
+    .terminal-pro .link { color: #38bdf8; text-decoration: underline; cursor: pointer; }
+    .terminal-pro .typing { border-right: 2px solid #a78bfa; animation: blink 1s steps(1) infinite; }
+    @keyframes blink { 50% { border-color: transparent; } }
+    /* FAQ */
+    .faq-section {
+      margin: 2.5rem auto 1.5rem auto;
+      max-width: 700px;
+      background: var(--glass-light);
+      border-radius: 1rem;
+      box-shadow: 0 2px 16px #7c3aed22;
+      padding: 2rem 1.5rem 1.5rem 1.5rem;
+      border: 1px solid #7c3aed33;
+    }
+    .faq-title {
+      font-size: 1.5rem;
+      color: var(--main);
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      letter-spacing: 1px;
+      text-shadow: 0 1px 8px #7c3aed33;
+    }
+    .faq-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .faq-item {
+      margin-bottom: 1.2rem;
+      border-bottom: 1px solid #a78bfa33;
+      padding-bottom: 1rem;
+    }
+    .faq-q {
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      font-weight: 700;
+      color: var(--main2);
+      transition: color 0.3s ease;
+    }
+    .faq-q:hover {
+      color: var(--main);
+    }
+    .faq-q i {
+      transition: transform 0.3s ease;
+    }
+    .faq-item.open .faq-q i {
+      transform: rotate(90deg);
+    }
+    .faq-a {
+      margin-top: 0.5rem;
+      color: var(--text);
+      font-size: 1rem;
+      line-height: 1.3;
+      white-space: pre-wrap;
+      user-select: text;
+    }
+    /* Scrollbar for terminal */
+    .terminal-body::-webkit-scrollbar {
+      width: 10px;
+    }
+    .terminal-body::-webkit-scrollbar-thumb {
+      background: #7c3aedaa;
+      border-radius: 5px;
+    }
+    /* Responsive */
+    @media (max-width: 700px) {
+      .glass, .terminal-pro, .faq-section {
+        margin: 2rem 1rem;
+        max-width: 100%;
+        padding: 1.5rem 1rem;
+      }
+      .avatar { width: 110px; height: 110px; }
+      h1 { font-size: 2rem; }
+    }
+    /* Accessibility */
+    body, .glass, .terminal-pro, .faq-section {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    .glass, .terminal-pro, .faq-section {
+      padding: 1.5rem;
+    }
+    .avatar {
+      width: 120px; height: 120px;
+    }
+    h1 {
+      font-size: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Particle background container -->
+  <div id="particles-js"></div>
+
+  <main class="glass" role="main" aria-label="Yuri08 Hacker Profile">
+
+    <!-- Avatar -->
+    <img src="https://files.catbox.moe/755fgv.png" alt="Avatar Yuri08" class="avatar" loading="lazy" />
+
+    <!-- Name -->
+    <h1>Yuri08</h1>
+    <div class="typeit" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Skills -->
+    <div class="skills" aria-label="Các kỹ năng">
+      <span class="skill">Burp Suite</span>
+      <span class="skill">Nmap</span>
+      <span class="skill">Metasploit</span>
+      <span class="skill">Hashcat</span>
+      <span class="skill">XSS</span>
+      <span class="skill">SQLi</span>
+      <span class="skill">SSRF</span>
+      <span class="skill">IDOR</span>
+      <span class="skill">OSINT</span>
+      <span class="skill">Python</span>
+      <span class="skill">JavaScript</span>
+      <span class="skill">HTML</span>
+      <span class="skill">PHP</span>
+      <span class="skill">Reverse Engineering</span>
+      <span class="skill">Malware Analysis</span>
+      <span class="skill">Linux</span>
+    </div>
+
+    <!-- Socials -->
+    <div class="socials" role="navigation" aria-label="Mạng xã hội">
+      <a href="https://github.com/Yuri08loveElaina" target="_blank" rel="noopener" aria-label="GitHub Yuri08"><i class="bi bi-github"></i></a>
+      <a href="https://twitter.com/Yuri08_sg" target="_blank" rel="noopener" aria-label="Twitter Yuri08"><i class="bi bi-twitter"></i></a>
+      <a href="https://www.linkedin.com/in/yuri08" target="_blank" rel="noopener" aria-label="LinkedIn Yuri08"><i class="bi bi-linkedin"></i></a>
+    </div>
+
+    <!-- TryHackMe profile -->
+    <a href="https://tryhackme.com/p/YURI08" target="_blank" rel="noopener" class="tryhackme" aria-label="TryHackMe profile Yuri08">
+      <i class="bi bi-shield-lock-fill"></i> TryHackMe Profile
+    </a>
+
+    <!-- Clock -->
+    <div class="clock" aria-live="polite" aria-atomic="true" aria-label="Thời gian hiện tại"></div>
+
+    <!-- User info -->
+    <div class="userinfo" aria-live="polite" aria-atomic="true" aria-label="Thông tin người dùng"></div>
+  </main>
+
+  <!-- Terminal Emulator -->
+  <section class="terminal-pro" aria-label="Trình giả lập terminal">
+    <div class="terminal-bar" aria-hidden="true">
+      <span class="dot red"></span>
+      <span class="dot yellow"></span>
+      <span class="dot green"></span>
+      <span class="terminal-title">Yuri08 Terminal</span>
+    </div>
+    <div class="terminal-body" tabindex="0" aria-live="polite" aria-atomic="false" aria-relevant="additions" id="terminal-body">
+      <pre id="terminal-banner" class="banner"></pre>
+      <pre id="terminal-output" aria-live="polite" aria-atomic="false"></pre>
+      <div id="terminal-input-line">
+        <span class="prompt"><span class="user">yuri08</span>@<span class="dir">~/profile</span>$</span>
+        <input type="text" id="terminal-input" aria-label="Dòng lệnh terminal" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section" aria-label="Câu hỏi thường gặp về Yuri08">
+    <h2 class="faq-title">FAQ - Câu hỏi thường gặp</h2>
+    <ul class="faq-list">
+      <li class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq1" id="faq1-btn">
+          <i class="bi bi-caret-right-fill"></i> Yuri08 là ai?
+        </button>
+        <div class="faq-a" id="faq1" role="region" aria-labelledby="faq1-btn" hidden>
+    Yuri08 là một hacker mũ trắng, chuyên gia bảo mật, và pentester nổi tiếng tại Việt Nam, với kỹ năng mạnh về pentesting, RE, malware analysis, và AI hỗ trợ.
+        </div>
+      </li>
+      <li class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq2" id="faq2-btn">
+          <i class="bi bi-caret-right-fill"></i> Liên hệ với Yuri08 như thế nào?
+        </button>
+        <div class="faq-a" id="faq2" role="region" aria-labelledby="faq2-btn" hidden>
+    Bạn có thể liên hệ qua email: nammoleong@gmail.com hoặc qua GitHub/Twitter cá nhân.
+        </div>
+      </li>
+      <li class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq3" id="faq3-btn">
+          <i class="bi bi-caret-right-fill"></i> Làm sao học pentest hiệu quả?
+        </button>
+        <div class="faq-a" id="faq3" role="region" aria-labelledby="faq3-btn" hidden>
+    Học pentest cần kết hợp thực hành lab, đọc tài liệu, tham gia CTF, và dùng các công cụ như Burp Suite, Nmap, Metasploit.
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+  <script>
+    // Initialize particlesJS
+    particlesJS.load('particles-js', 'https://cdn.jsdelivr.net/gh/VincentGarreau/particles.js/particles.json', function() {
+      // console.log('particles.js loaded');
+    });
+
+    // Typing effect for role text
+    const typeTexts = [
+      "Pentester chuyên nghiệp",
+      "Chuyên gia Reverse Engineering",
+      "Chuyên gia Malware Analysis",
+      " Cybersecurity Student",
+      "Yuri08 - Hacker mũ trắng",
+    ];
+    let typeIndex = 0;
+    let charIndex = 0;
+    let typingForward = true;
+    const typeElement = document.querySelector('.typeit');
+
+    function typeEffect() {
+      const text = typeTexts[typeIndex];
+      if (typingForward) {
+        charIndex++;
+        typeElement.textContent = text.substring(0, charIndex);
+        if (charIndex === text.length) {
+          typingForward = false;
+          setTimeout(typeEffect, 1800);
+          return;
+        }
+      } else {
+        charIndex--;
+        typeElement.textContent = text.substring(0, charIndex);
+        if (charIndex === 0) {
+          typingForward = true;
+          typeIndex = (typeIndex + 1) % typeTexts.length;
+        }
+      }
+      setTimeout(typeEffect, typingForward ? 90 : 45);
+    }
+    typeEffect();
+
+    // Clock display
+    function updateClock() {
+      const now = new Date();
+      const clockEl = document.querySelector('.clock');
+      clockEl.textContent = now.toLocaleString('vi-VN', { hour12: false });
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // User info
+    function updateUserInfo() {
+      const userInfoEl = document.querySelector('.userinfo');
+      let user = 'YURI08';
+      try {
+        user = decodeURIComponent(window.location.search.split('user=')[1] || 'YURI08');
+      } catch { }
+      userInfoEl.textContent = `User hiện tại: ${user}`;
+    }
+    updateUserInfo();
+
+    // Terminal emulator
+    const terminalOutput = document.getElementById('terminal-output');
+    const terminalBanner = document.getElementById('terminal-banner');
+    const terminalInput = document.getElementById('terminal-input');
+    const terminalBody = document.getElementById('terminal-body');
+
+    // Banner ASCII art (the exact one you requested)
+    const bannerText = ` 
+    _________________________________________________
+    |             hacker profile                     | 
+    |   Github:Yuri08loveElaina                      |
+    |   tryhackme:YURI08                             |
+    |   hackthebox:YURI08                            |
+    |________________________________________________|
+    `;
+    // Commands object
+    const commands = {
+      help: {
+        desc: "Hiển thị danh sách lệnh.",
+        run: () => {
+          return [
+            "Giới thiệu về Yuri08.",
+            "- skills: Hiển thị kỹ năng.",
+            "- contact: Thông tin liên hệ.",
+            "- github: Mở GitHub Yuri08.",
+            "- tryhackme: Mở TryHackMe profile.",
+            "- clear: Xóa màn hình terminal, giữ banner.",
+            "- whoami: Thông tin user hiện tại.",
+            "- banner: Hiện banner ASCII art.",
+            "- social: Hiện các mạng xã hội."
+          ].join('\n');
+        }
+      },
+      skills: {
+        desc: "Hiển thị kỹ năng của Yuri08.",
+        run: () => {
+          return [
+            "Kỹ năng: Burp Suite, Nmap, Metasploit, Hashcat, XSS, SQLi, SSRF, IDOR, OSINT, Python, JavaScript, HTML, PHP, RE, Malware Analysis, Linux"
+          ].join('\n');
+        }
+      },
+      contact: {
+        desc: "Thông tin liên hệ Yuri08.",
+        run: () => {
+          return [
+            "Email: yuri08@example.com",
+            "GitHub: https://github.com/Yuri08loveElaina",
+            "Twitter: https://twitter.com/Yuri08_sg",
+            "LinkedIn: https://www.linkedin.com/in/yuri08"
+          ].join('\n');
+        }
+      },
+      github: {
+        desc: "Mở GitHub Yuri08.",
+        run: () => {
+          window.open("https://github.com/Yuri08loveElaina", "_blank");
+          return "Mở GitHub Yuri08 trong tab mới.";
+        }
+      },
+      tryhackme: {
+        desc: "Mở TryHackMe profile Yuri08.",
+        run: () => {
+          window.open("https://tryhackme.com/p/YURI08", "_blank");
+          return "Mở TryHackMe profile Yuri08 trong tab mới.";
+        }
+      },
+      clear: {
+        desc: "Xóa màn hình terminal, giữ banner.",
+        run: () => {
+          terminalOutput.textContent = '';
+          printToTerminal(bannerText, false, true);
+          return '';
+        }
+      },
+      whoami: {
+        desc: "Thông tin user hiện tại.",
+        run: () => {
+          let user = 'unknown';
+          try {
+            user = decodeURIComponent(window.location.search.split('user=')[1] || 'unknown');
+          } catch { }
+          return `Bạn là: ${user}`;
+        }
+      },
+      banner: {
+        desc: "Hiện banner ASCII art.",
+        run: () => {
+          return bannerText;
+        }
+      },
+      social: {
+        desc: "Hiện các mạng xã hội.",
+        run: () => {
+          return [
+            "GitHub: https://github.com/Yuri08loveElaina",
+            "Twitter: https://twitter.com/Yuri08_sg",
+            "LinkedIn: https://www.linkedin.com/in/yuri08"
+          ].join('\n');
+        }
+      }
+    };
+
+    // Print text to terminal output, with optional styling
+    function printToTerminal(text, isUserInput = false, isBanner = false) {
+      const line = document.createElement('pre');
+      line.style.margin = '0';
+      if (isBanner) {
+        line.classList.add('banner');
+      } else if (isUserInput) {
+        line.classList.add('cmd');
+        line.textContent = `$ ${text}`;
+      } else {
+        line.textContent = text;
+      }
+      terminalOutput.appendChild(line);
+      // Scroll down to bottom
+      terminalBody.scrollTop = terminalBody.scrollHeight;
+    }
+
+    // Handle command input
+    function handleCommand(input) {
+      const trimmed = input.trim();
+      if (!trimmed) return;
+
+      // Echo command
+      printToTerminal(trimmed, true);
+
+      const args = trimmed.split(' ');
+      const cmd = args[0].toLowerCase();
+
+      if (commands[cmd]) {
+        try {
+          const result = commands[cmd].run(args.slice(1));
+          if (result) {
+            printToTerminal(result);
+          }
+        } catch (e) {
+          printToTerminal(`Lỗi khi thực thi lệnh: ${e.message}`, false, false);
+        }
+      } else {
+        printToTerminal(`Lệnh không hợp lệ: ${cmd}. Gõ 'help' để xem danh sách lệnh.`);
+      }
+    }
+
+    // FAQ toggle logic
+    document.querySelectorAll('.faq-q').forEach(button => {
+      button.addEventListener('click', () => {
+        const parent = button.closest('.faq-item');
+        const expanded = button.getAttribute('aria-expanded') === 'true';
+        // Toggle
+        button.setAttribute('aria-expanded', String(!expanded));
+        parent.classList.toggle('open');
+        const answer = parent.querySelector('.faq-a');
+        if (!expanded) {
+          answer.removeAttribute('hidden');
+        } else {
+          answer.setAttribute('hidden', '');
+        }
+      });
+    });
+
+    // Initialize banner on load
+    terminalBanner.textContent = bannerText;
+
+    // Terminal input event
+    terminalInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const value = terminalInput.value;
+        handleCommand(value);
+        terminalInput.value = '';
+      }
+    });
+
+    // Focus input on terminal click or on load
+    terminalBody.addEventListener('click', () => terminalInput.focus());
+    window.addEventListener('load', () => terminalInput.focus());
+
+  </script>
+</body>
+</html>
