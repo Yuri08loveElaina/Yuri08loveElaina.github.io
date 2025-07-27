@@ -1,44 +1,81 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Yuri08 - Hacker Profile</title>
+  <title>Yuri08 - Hacker Profile Siêu 4D</title>
   <!-- Google Fonts & Bootstrap Icons -->
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   <style>
     :root {
-      --main: #7c3aed;
-      --main2: #10b981;
-      --main-light: #a78bfa;
-      --bg: #181a2a;
-      --bg2: #232946;
-      --glass: rgba(40,30,80,0.85);
-      --glass-light: rgba(120,80,255,0.12);
-      --text: #e0e7ef;
-      --shadow: 0 8px 32px 0 #7c3aed33;
-      --glow: 0 0 32px 4px #7c3aed55;
+      --main: #7c3aed; /* Tím */
+      --main2: #10b981; /* Xanh lá cây */
+      --main-light: #a78bfa; /* Tím nhạt */
+      --bg: #181a2a; /* Nền tối */
+      --bg2: #232946; /* Nền tối hơn */
+      --glass: rgba(40,30,80,0.85); /* Kính mờ */
+      --glass-light: rgba(120,80,255,0.12); /* Kính mờ nhẹ */
+      --text: #e0e7ef; /* Màu chữ chính */
+      --shadow: 0 8px 32px 0 #7c3aed33; /* Bóng đổ */
+      --glow: 0 0 32px 4px #7c3aed55; /* Phát sáng chính */
+      --glow-alt: 0 0 40px 6px #10b98155; /* Phát sáng phụ */
+      --terminal-glow: 0 0 20px 5px rgba(124, 58, 237, 0.7), 0 0 40px 10px rgba(167, 139, 250, 0.5); /* Phát sáng mạnh cho terminal */
     }
     html, body {
       min-height: 100%;
       margin: 0;
       font-family: 'JetBrains Mono', monospace;
-      background: linear-gradient(135deg, #181a2a 0%, #232946 100%);
+      background: linear-gradient(135deg, var(--bg) 0%, var(--bg2) 100%);
       color: var(--text);
       transition: background 0.5s, color 0.5s;
       overflow-x: hidden;
+      perspective: 1000px; /* Thiết lập phối cảnh 3D cho toàn bộ trang */
+      transform-style: preserve-3d;
+      scroll-behavior: smooth; /* Cuộn mượt mà */
     }
+
+    /* Hiệu ứng Parallax cho các lớp */
+    .parallax-container {
+        height: 100vh;
+        overflow-x: hidden;
+        overflow-y: auto; /* Cho phép cuộn */
+        perspective: 1000px; /* Thiết lập phối cảnh cho container cuộn */
+        transform-style: preserve-3d;
+    }
+
+    .parallax-layer {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        transform-origin: center center;
+        /* will-change: transform; */ /* Tối ưu hóa hiệu suất */
+    }
+
+    /* Các lớp parallax cụ thể */
+    .layer-back {
+        transform: translateZ(-300px) scale(1.3); /* Lớp xa nhất */
+    }
+    .layer-mid {
+        transform: translateZ(-100px) scale(1.1); /* Lớp giữa */
+    }
+    .layer-front {
+        transform: translateZ(0); /* Lớp gần nhất */
+    }
+
     /* Particle background */
     #particles-js {
-      position: fixed;
+      position: fixed; /* Giữ cố định */
       width: 100vw;
       height: 100vh;
       z-index: 0;
       top: 0; left: 0;
       pointer-events: none;
+      /* Đã chuyển transform sang layer-back */
     }
+
     /* Glass container */
     .glass {
       background: var(--glass);
@@ -51,8 +88,14 @@
       z-index: 2;
       border: 1.5px solid #a78bfa33;
       backdrop-filter: blur(8px);
-      transition: background 0.5s;
+      transition: background 0.5s, box-shadow 0.3s;
+      transform-style: preserve-3d;
+      /* will-change: transform, box-shadow; */
     }
+    .glass:hover {
+        box-shadow: var(--shadow), var(--glow), var(--glow-alt);
+    }
+
     /* Avatar */
     .avatar {
       width: 140px; height: 140px;
@@ -61,10 +104,16 @@
       box-shadow: 0 0 32px var(--main-light);
       margin-bottom: 1.2rem;
       object-fit: cover;
-      transition: transform 0.3s;
+      transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s;
       background: #232946;
+      transform: translateZ(0);
+      transform-origin: center;
+      /* will-change: transform, box-shadow; */
     }
-    .avatar:hover { transform: scale(1.07) rotate(3deg); }
+    .avatar:hover { 
+      transform: scale(1.07) rotate(3deg) translateZ(20px); 
+      box-shadow: 0 0 40px var(--main), 0 0 60px var(--main-light); 
+    }
     /* Name */
     h1 {
       font-size: 2.5rem;
@@ -73,12 +122,19 @@
       margin-bottom: 0.2rem;
       letter-spacing: 1px;
       text-shadow: 0 2px 16px #7c3aed55;
+      animation: neonGlow 2s ease-in-out infinite alternate;
+      /* will-change: text-shadow; */
+    }
+    @keyframes neonGlow {
+      from { text-shadow: 0 0 10px var(--main), 0 0 20px var(--main), 0 0 30px #a78bfa; }
+      to { text-shadow: 0 0 15px var(--main-light), 0 0 25px var(--main), 0 0 40px #a78bfa; }
     }
     .typeit {
       font-size: 1.2rem;
       color: #a78bfa;
       min-height: 2rem;
       margin-bottom: 1.2rem;
+      text-shadow: 0 0 8px #a78bfa55;
     }
     /* Skills */
     .skills {
@@ -92,13 +148,20 @@
       font-weight: 600;
       font-size: 1rem;
       box-shadow: 0 2px 8px #a78bfa33;
-      transition: background 0.3s, color 0.3s, transform 0.2s;
-      cursor: default;
+      transition: background 0.3s, color 0.3s, transform 0.2s, box-shadow 0.3s;
+      cursor: pointer;
       user-select: none;
       border: 1px solid #7c3aed44;
       text-shadow: 0 1px 8px #7c3aed33;
+      transform: translateZ(0);
+      /* will-change: transform, box-shadow; */
     }
-    .skill:hover { background: #7c3aed33; color: var(--main); }
+    .skill:hover { 
+      background: #7c3aed33; 
+      color: var(--main); 
+      transform: translateY(-5px) scale(1.05) translateZ(10px); 
+      box-shadow: 0 5px 15px #a78bfa55, 0 0 10px var(--main-light);
+    }
     /* Socials */
     .socials {
       display: flex; gap: 1.2rem; justify-content: center; margin: 1.2rem 0 2rem 0;
@@ -106,11 +169,17 @@
     .socials a {
       color: var(--main-light);
       font-size: 1.7rem;
-      transition: color 0.2s;
+      transition: color 0.2s, transform 0.3s, filter 0.3s;
       text-decoration: none;
       filter: drop-shadow(0 0 8px #7c3aed55);
+      transform: translateZ(0);
+      /* will-change: transform, filter; */
     }
-    .socials a:hover { color: var(--main2); }
+    .socials a:hover { 
+      color: var(--main2); 
+      transform: scale(1.2) rotate(5deg) translateZ(15px); 
+      filter: drop-shadow(0 0 15px var(--main2));
+    }
     /* TryHackMe */
     .tryhackme {
       display: inline-block;
@@ -121,11 +190,17 @@
       font-weight: 700;
       margin: 1rem 0 0.5rem 0;
       text-decoration: none;
-      transition: background 0.3s;
+      transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
       box-shadow: 0 2px 8px #10b98133;
       letter-spacing: 1px;
+      transform: translateZ(0);
+      /* will-change: transform, box-shadow; */
     }
-    .tryhackme:hover { background: #059669; }
+    .tryhackme:hover { 
+      background: #059669; 
+      transform: scale(1.05) translateY(-3px) translateZ(10px);
+      box-shadow: 0 5px 15px #10b98155, 0 0 10px var(--main2);
+    }
     /* Clock & Info */
     .clock {
       font-size: 1.1rem;
@@ -142,21 +217,78 @@
       word-break: break-all;
       text-shadow: 0 1px 8px #7c3aed33;
     }
-    /* Terminal Pro */
+
+    /* Terminal Pro - Siêu 3D/4D */
     .terminal-pro {
       background: linear-gradient(135deg, #232946 80%, #7c3aed22 100%);
       color: #d1d5db;
       font-family: 'JetBrains Mono', 'Fira Mono', 'Consolas', monospace;
       border-radius: 1rem;
-      box-shadow: 0 8px 32px 0 #7c3aed33;
+      box-shadow: var(--shadow), var(--glow); 
       max-width: 700px;
       margin: 2rem auto 1.5rem auto;
       overflow: hidden;
       border: 1.5px solid #312e8155;
       min-height: 320px;
       position: relative;
-      transition: background 0.5s;
+      transition: background 0.5s, box-shadow 0.5s, transform 0.3s ease-out;
+      transform-style: preserve-3d; /* Quan trọng để các phần tử con có 3D */
+      transform: translateZ(0); /* Lớp cơ bản cho 3D */
+      /* will-change: transform, box-shadow; */
     }
+    .terminal-pro:hover {
+        box-shadow: var(--shadow), var(--terminal-glow); /* Glow mạnh hơn khi hover */
+    }
+
+    /* Hiệu ứng Glitch/Scanline cho Terminal */
+    .terminal-pro::before, .terminal-pro::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 10;
+    }
+
+    .terminal-pro::before {
+        background: repeating-linear-gradient(
+            0deg,
+            rgba(0,0,0,0.1),
+            rgba(0,0,0,0.1) 1px,
+            transparent 1px,
+            transparent 2px
+        );
+        animation: scanline 8s linear infinite;
+        opacity: 0.15;
+    }
+
+    .terminal-pro::after {
+        background: linear-gradient(
+            to bottom,
+            transparent 50%,
+            rgba(0,0,0,0.2) 50%
+        );
+        background-size: 100% 4px;
+        animation: glitch 0.1s infinite alternate;
+        opacity: 0.05;
+    }
+
+    @keyframes scanline {
+        from { background-position: 0 0; }
+        to { background-position: 0 100%; }
+    }
+
+    @keyframes glitch {
+        0% { transform: translate(0); }
+        20% { transform: translate(-2px, 2px); }
+        40% { transform: translate(-2px, -2px); }
+        60% { transform: translate(2px, 2px); }
+        80% { transform: translate(2px, -2px); }
+        100% { transform: translate(0); }
+    }
+
     .terminal-bar {
       background: #18181b;
       height: 2.1rem;
@@ -165,9 +297,15 @@
       padding: 0 1rem;
       border-bottom: 1px solid #312e8155;
       position: relative;
+      z-index: 1; /* Đảm bảo nằm trên glitch effect */
     }
     .terminal-bar .dot {
       width: 13px; height: 13px; border-radius: 50%; display: inline-block; margin-right: 7px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .terminal-bar .dot:hover {
+        transform: scale(1.2);
+        box-shadow: 0 0 8px currentColor; 
     }
     .terminal-bar .red { background: #ef4444; box-shadow: 0 0 4px #ef4444aa; }
     .terminal-bar .yellow { background: #facc15; box-shadow: 0 0 4px #facc15aa; }
@@ -179,6 +317,10 @@
       font-weight: 700;
       letter-spacing: 1px;
       opacity: 0.8;
+      transition: color 0.3s;
+    }
+    .terminal-title:hover {
+        color: var(--main);
     }
     .terminal-body {
       padding: 1.2rem 1.2rem 1rem 1.2rem;
@@ -187,6 +329,9 @@
       overflow-y: auto;
       font-size: 1.05rem;
       background: transparent;
+      transform: translateZ(0); /* Đảm bảo 3D effect cho nội dung */
+      position: relative;
+      z-index: 1; /* Đảm bảo nội dung nằm trên glitch */
     }
     #terminal-banner {
       white-space: pre;
@@ -194,6 +339,7 @@
       color: #a78bfa;
       margin-bottom: 1rem;
       user-select: text;
+      text-shadow: 0 0 5px #a78bfa55;
     }
     #terminal-output {
       min-height: 90px;
@@ -217,6 +363,7 @@
       font-size: 1em;
       width: 70%;
       padding: 0.1em 0;
+      caret-color: var(--main2); 
     }
     .prompt .user { color: #7c3aed; }
     .prompt .dir { color: #10b981; }
@@ -229,6 +376,7 @@
     .terminal-pro .link { color: #38bdf8; text-decoration: underline; cursor: pointer; }
     .terminal-pro .typing { border-right: 2px solid #a78bfa; animation: blink 1s steps(1) infinite; }
     @keyframes blink { 50% { border-color: transparent; } }
+
     /* FAQ */
     .faq-section {
       margin: 2.5rem auto 1.5rem auto;
@@ -238,6 +386,8 @@
       box-shadow: 0 2px 16px #7c3aed22;
       padding: 2rem 1.5rem 1.5rem 1.5rem;
       border: 1px solid #7c3aed33;
+      transform: translateZ(0);
+      /* will-change: transform, box-shadow; */
     }
     .faq-title {
       font-size: 1.5rem;
@@ -256,6 +406,14 @@
       margin-bottom: 1.2rem;
       border-bottom: 1px solid #a78bfa33;
       padding-bottom: 1rem;
+      transition: background 0.3s;
+    }
+    .faq-item:last-child {
+        border-bottom: none;
+    }
+    .faq-item:hover {
+        background: rgba(120,80,255,0.05); 
+        border-radius: 0.5rem;
     }
     .faq-q {
       cursor: pointer;
@@ -265,10 +423,16 @@
       gap: 0.5em;
       font-weight: 700;
       color: var(--main2);
-      transition: color 0.3s ease;
+      transition: color 0.3s ease, transform 0.2s;
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      padding: 0.5rem 0;
     }
     .faq-q:hover {
       color: var(--main);
+      transform: translateX(5px);
     }
     .faq-q i {
       transition: transform 0.3s ease;
@@ -283,14 +447,33 @@
       line-height: 1.3;
       white-space: pre-wrap;
       user-select: text;
+      transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease-out;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      padding-left: 1.5em;
+    }
+    .faq-item.open .faq-a {
+        max-height: 200px; /* Adjust as needed */
+        opacity: 1;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
     }
     /* Scrollbar for terminal */
     .terminal-body::-webkit-scrollbar {
       width: 10px;
     }
-    .terminal-body::-webkit-scrollbar-thumb {
-      background: #7c3aedaa;
+    .terminal-body::-webkit-scrollbar-track {
+      background: var(--bg);
       border-radius: 5px;
+    }
+    .terminal-body::-webkit-scrollbar-thumb {
+      background: var(--main);
+      border-radius: 5px;
+      border: 1px solid var(--main-light);
+    }
+    .terminal-body::-webkit-scrollbar-thumb:hover {
+      background: var(--main-light);
     }
     /* Responsive */
     @media (max-width: 700px) {
@@ -320,112 +503,122 @@
 </head>
 <body>
 
-  <!-- Particle background container -->
-  <div id="particles-js"></div>
+  <!-- Parallax Container -->
+  <div class="parallax-container">
+    <!-- Particle background container (Layer 1: Farthest back) -->
+    <div id="particles-js" class="parallax-layer layer-back"></div>
 
-  <main class="glass" role="main" aria-label="Yuri08 Hacker Profile">
+    <!-- Main Content (Layer 2: Middle) -->
+    <main class="glass parallax-layer layer-mid" role="main" aria-label="Yuri08 Hacker Profile">
 
-    <!-- Avatar -->
-    <img src="https://files.catbox.moe/755fgv.png" alt="Avatar Yuri08" class="avatar" loading="lazy" />
+      <!-- Avatar -->
+      <img src="https://files.catbox.moe/755fgv.png" alt="Avatar Yuri08" class="avatar" loading="lazy" />
 
-    <!-- Name -->
-    <h1>Yuri08</h1>
-    <div class="typeit" aria-live="polite" aria-atomic="true"></div>
+      <!-- Name -->
+      <h1>Yuri08</h1>
+      <div class="typeit" aria-live="polite" aria-atomic="true"></div>
 
-    <!-- Skills -->
-    <div class="skills" aria-label="Các kỹ năng">
-      <span class="skill">Burp Suite</span>
-      <span class="skill">Nmap</span>
-      <span class="skill">Metasploit</span>
-      <span class="skill">Hashcat</span>
-      <span class="skill">XSS</span>
-      <span class="skill">SQLi</span>
-      <span class="skill">SSRF</span>
-      <span class="skill">IDOR</span>
-      <span class="skill">OSINT</span>
-      <span class="skill">Python</span>
-      <span class="skill">JavaScript</span>
-      <span class="skill">HTML</span>
-      <span class="skill">PHP</span>
-      <span class="skill">Reverse Engineering</span>
-      <span class="skill">Malware Analysis</span>
-      <span class="skill">Linux</span>
-    </div>
-
-    <!-- Socials -->
-    <div class="socials" role="navigation" aria-label="Mạng xã hội">
-      <a href="https://github.com/Yuri08loveElaina" target="_blank" rel="noopener" aria-label="GitHub Yuri08"><i class="bi bi-github"></i></a>
-      <a href="https://twitter.com/Yuri08_sg" target="_blank" rel="noopener" aria-label="Twitter Yuri08"><i class="bi bi-twitter"></i></a>
-      <a href="https://www.linkedin.com/in/yuri08" target="_blank" rel="noopener" aria-label="LinkedIn Yuri08"><i class="bi bi-linkedin"></i></a>
-    </div>
-
-    <!-- TryHackMe profile -->
-    <a href="https://tryhackme.com/p/YURI08" target="_blank" rel="noopener" class="tryhackme" aria-label="TryHackMe profile Yuri08">
-      <i class="bi bi-shield-lock-fill"></i> TryHackMe Profile
-    </a>
-
-    <!-- Clock -->
-    <div class="clock" aria-live="polite" aria-atomic="true" aria-label="Thời gian hiện tại"></div>
-
-    <!-- User info -->
-    <div class="userinfo" aria-live="polite" aria-atomic="true" aria-label="Thông tin người dùng"></div>
-  </main>
-
-  <!-- Terminal Emulator -->
-  <section class="terminal-pro" aria-label="Trình giả lập terminal">
-    <div class="terminal-bar" aria-hidden="true">
-      <span class="dot red"></span>
-      <span class="dot yellow"></span>
-      <span class="dot green"></span>
-      <span class="terminal-title">Yuri08 Terminal</span>
-    </div>
-    <div class="terminal-body" tabindex="0" aria-live="polite" aria-atomic="false" aria-relevant="additions" id="terminal-body">
-      <pre id="terminal-banner" class="banner"></pre>
-      <pre id="terminal-output" aria-live="polite" aria-atomic="false"></pre>
-      <div id="terminal-input-line">
-        <span class="prompt"><span class="user">yuri08</span>@<span class="dir">~/profile</span>$</span>
-        <input type="text" id="terminal-input" aria-label="Dòng lệnh terminal" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+      <!-- Skills -->
+      <div class="skills" aria-label="Các kỹ năng">
+        <span class="skill" data-audio-src="https://www.soundjay.com/buttons/button-2.mp3">Burp Suite</span>
+        <span class="skill" data-audio-src="https://www.soundjay.com/buttons/button-2.mp3">Nmap</span>
+        <span class="skill" data-audio-src="https://www.soundjay.com/buttons/button-2.mp3">Metasploit</span>
+        <span class="skill" data-audio-src="https://www.soundjay.com/buttons/button-2.mp3">Hashcat</span>
+        <span class="skill" data-audio-src="https://www.soundjay.com/buttons/button-2.mp3">XSS</span>
+        <span class="skill" data-audio-src="https://www.soundjay.com/buttons/button-2.mp3">SQLi</span>
+        <span class="skill" data-audio-src="https://www.soundjay.com/buttons/button-2.mp3">SSRF</span>
+        <span class="skill" data-audio-src="https://www.soundjay.com/buttons/button-2.mp3">IDOR</span>
+        <span class="skill" data-audio-src="https://www.soundjay.com/buttons/button-2.mp3">OSINT</span>
+        <span class="skill" data-audio-src="https://www.soundjay.com/buttons/button-2.mp3">Python</span>
+        <span class="skill" data-audio-src="https://www.soundjay.com/buttons/button-2.mp3">JavaScript</span>
+        <span class="skill" data-audio-src="https://www.soundjay.com/buttons/button-2.mp3">HTML</span>
+        <span class="skill" data-audio-src="https://www.soundjay.com/buttons/button-2.mp3">PHP</span>
+        <span class="skill" data-audio-src="https://www.soundjay.com/buttons/button-2.mp3">Reverse Engineering</span>
+        <span class="skill" data-audio-src="https://www.soundjay.com/buttons/button-2.mp3">Malware Analysis</span>
+        <span class="skill" data-audio-src="https://www.soundjay.com/buttons/button-2.mp3">Linux</span>
       </div>
-    </div>
-  </section>
 
-  <!-- FAQ -->
-  <section class="faq-section" aria-label="Câu hỏi thường gặp về Yuri08">
-    <h2 class="faq-title">FAQ - Câu hỏi thường gặp</h2>
-    <ul class="faq-list">
-      <li class="faq-item">
-        <button class="faq-q" aria-expanded="false" aria-controls="faq1" id="faq1-btn">
-          <i class="bi bi-caret-right-fill"></i> Yuri08 là ai?
-        </button>
-        <div class="faq-a" id="faq1" role="region" aria-labelledby="faq1-btn" hidden>
-    Yuri08 là một hacker mũ trắng, một học sinh và pentester lang thang tại Việt Nam, với kỹ năng mạnh về pentesting, RE, malware analysis, và AI hỗ trợ.
+      <!-- Socials -->
+      <div class="socials" role="navigation" aria-label="Mạng xã hội">
+        <a href="https://github.com/Yuri08loveElaina" target="_blank" rel="noopener" aria-label="GitHub Yuri08" data-audio-src="https://www.soundjay.com/buttons/button-4.mp3"><i class="bi bi-github"></i></a>
+        <a href="https://twitter.com/Yuri08_sg" target="_blank" rel="noopener" aria-label="Twitter Yuri08" data-audio-src="https://www.soundjay.com/buttons/button-4.mp3"><i class="bi bi-twitter"></i></a>
+        <a href="https://www.linkedin.com/in/yuri08" target="_blank" rel="noopener" aria-label="LinkedIn Yuri08" data-audio-src="https://www.soundjay.com/buttons/button-4.mp3"><i class="bi bi-linkedin"></i></a>
+      </div>
+
+      <!-- TryHackMe profile -->
+      <a href="https://tryhackme.com/p/YURI08" target="_blank" rel="noopener" class="tryhackme" aria-label="TryHackMe profile Yuri08" data-audio-src="https://www.soundjay.com/buttons/button-10.mp3">
+        <i class="bi bi-shield-lock-fill"></i> TryHackMe Profile
+      </a>
+
+      <!-- Clock -->
+      <div class="clock" aria-live="polite" aria-atomic="true" aria-label="Thời gian hiện tại"></div>
+
+      <!-- User info -->
+      <div class="userinfo" aria-live="polite" aria-atomic="true" aria-label="Thông tin người dùng"></div>
+    </main>
+
+    <!-- Terminal Emulator (Layer 3: Closer) -->
+    <section class="terminal-pro parallax-layer layer-front" aria-label="Trình giả lập terminal">
+      <div class="terminal-bar" aria-hidden="true">
+        <span class="dot red" data-audio-src="https://www.soundjay.com/buttons/button-7.mp3"></span>
+        <span class="dot yellow" data-audio-src="https://www.soundjay.com/buttons/button-7.mp3"></span>
+        <span class="dot green" data-audio-src="https://www.soundjay.com/buttons/button-7.mp3"></span>
+        <span class="terminal-title">Yuri08 Terminal</span>
+      </div>
+      <div class="terminal-body" tabindex="0" aria-live="polite" aria-atomic="false" aria-relevant="additions" id="terminal-body">
+        <pre id="terminal-banner" class="banner"></pre>
+        <pre id="terminal-output" aria-live="polite" aria-atomic="false"></pre>
+        <div id="terminal-input-line">
+          <span class="prompt"><span class="user">yuri08</span>@<span class="dir">~/profile</span>$</span>
+          <input type="text" id="terminal-input" aria-label="Dòng lệnh terminal" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
         </div>
-      </li>
-      <li class="faq-item">
-        <button class="faq-q" aria-expanded="false" aria-controls="faq2" id="faq2-btn">
-          <i class="bi bi-caret-right-fill"></i> Liên hệ với Yuri08 như thế nào?
-        </button>
-        <div class="faq-a" id="faq2" role="region" aria-labelledby="faq2-btn" hidden>
-    Bạn có thể liên hệ qua email: nammoleong@gmail.com hoặc qua GitHub/Twitter cá nhân.
-        </div>
-      </li>
-      <li class="faq-item">
-        <button class="faq-q" aria-expanded="false" aria-controls="faq3" id="faq3-btn">
-          <i class="bi bi-caret-right-fill"></i> Làm sao học pentest hiệu quả?
-        </button>
-        <div class="faq-a" id="faq3" role="region" aria-labelledby="faq3-btn" hidden>
-    Học pentest cần kết hợp thực hành lab, đọc tài liệu, tham gia CTF, và dùng các công cụ như Burp Suite, Nmap, Metasploit.
-        </div>
-      </li>
-    </ul>
-  </section>
+      </div>
+    </section>
+
+    <!-- FAQ (Layer 4: Closest - but below terminal for visual hierarchy) -->
+    <section class="faq-section parallax-layer layer-front" aria-label="Câu hỏi thường gặp về Yuri08">
+      <h2 class="faq-title">FAQ - Câu hỏi thường gặp</h2>
+      <ul class="faq-list">
+        <li class="faq-item">
+          <button class="faq-q" aria-expanded="false" aria-controls="faq1" id="faq1-btn" data-audio-src="https://www.soundjay.com/buttons/button-1.mp3">
+            <i class="bi bi-caret-right-fill"></i> Yuri08 là ai?
+          </button>
+          <div class="faq-a" id="faq1" role="region" aria-labelledby="faq1-btn" hidden>
+      Yuri08 là một hacker mũ trắng, một học sinh và pentester lang thang tại Việt Nam, với kỹ năng mạnh về pentesting, RE, malware analysis, và AI hỗ trợ.
+          </div>
+        </li>
+        <li class="faq-item">
+          <button class="faq-q" aria-expanded="false" aria-controls="faq2" id="faq2-btn" data-audio-src="https://www.soundjay.com/buttons/button-1.mp3">
+            <i class="bi bi-caret-right-fill"></i> Liên hệ với Yuri08 như thế nào?
+          </button>
+          <div class="faq-a" id="faq2" role="region" aria-labelledby="faq2-btn" hidden>
+      Bạn có thể liên hệ qua email: nammoleong@gmail.com hoặc qua GitHub/Twitter cá nhân.
+          </div>
+        </li>
+        <li class="faq-item">
+          <button class="faq-q" aria-expanded="false" aria-controls="faq3" id="faq3-btn" data-audio-src="https://www.soundjay.com/buttons/button-1.mp3">
+            <i class="bi bi-caret-right-fill"></i> Làm sao học pentest hiệu quả?
+          </button>
+          <div class="faq-a" id="faq3" role="region" aria-labelledby="faq3-btn" hidden>
+      Học pentest cần kết hợp thực hành lab, đọc tài liệu, tham gia CTF, và dùng các công cụ như Burp Suite, Nmap, Metasploit.
+          </div>
+        </li>
+      </ul>
+    </section>
+  </div> <!-- End Parallax Container -->
 
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <!-- Thêm thư viện GSAP để tạo hoạt ảnh mượt mà hơn -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
 
   <script>
+    // Đăng ký ScrollTrigger plugin (nếu bạn định dùng nhiều parallax hơn)
+    gsap.registerPlugin(ScrollTrigger);
+
     // Initialize particlesJS
     particlesJS.load('particles-js', 'https://cdn.jsdelivr.net/gh/VincentGarreau/particles.js/particles.json', function() {
-      // console.log('particles.js loaded');
+      console.log('particles.js loaded');
     });
 
     // Typing effect for role text
@@ -490,12 +683,12 @@
     const terminalBody = document.getElementById('terminal-body');
 
     // Banner ASCII art (the exact one you requested)
-    const bannerText = ` 
+    const bannerText = `  
     _________________________________________________
-    |             hacker profile                     | 
-    |   Github:Yuri08loveElaina                      |
-    |   tryhackme:YURI08                             |
-    |   hackthebox:YURI08                            |
+    |       hacker profile                         | 
+    |   Github:Yuri08loveElaina                    |
+    |   tryhackme:YURI08                           |
+    |   hackthebox:YURI08                          |
     |________________________________________________|
     `;
     // Commands object
@@ -504,7 +697,8 @@
         desc: "Hiển thị danh sách lệnh.",
         run: () => {
           return [
-            "Giới thiệu về Yuri08.",
+            "Các lệnh có sẵn:",
+            "- about: Giới thiệu về Yuri08.",
             "- skills: Hiển thị kỹ năng.",
             "- contact: Thông tin liên hệ.",
             "- github: Mở GitHub Yuri08.",
@@ -516,12 +710,16 @@
           ].join('\n');
         }
       },
+      about: {
+        desc: "Giới thiệu về Yuri08.",
+        run: () => {
+          return "Yuri08 là một hacker mũ trắng, một học sinh và pentester lang thang tại Việt Nam, với kỹ năng mạnh về pentesting, RE, malware analysis, và AI hỗ trợ.";
+        }
+      },
       skills: {
         desc: "Hiển thị kỹ năng của Yuri08.",
         run: () => {
-          return [
-            "Kỹ năng: Burp Suite, Nmap, Metasploit, Hashcat, XSS, SQLi, SSRF, IDOR, OSINT, Python, JavaScript, HTML, PHP, RE, Malware Analysis, Linux"
-          ].join('\n');
+          return "Kỹ năng: Burp Suite, Nmap, Metasploit, Hashcat, XSS, SQLi, SSRF, IDOR, OSINT, Python, JavaScript, HTML, PHP, RE, Malware Analysis, Linux";
         }
       },
       contact: {
@@ -585,21 +783,45 @@
       }
     };
 
-    // Print text to terminal output, with optional styling
+    // Print text to terminal output, with typing animation
     function printToTerminal(text, isUserInput = false, isBanner = false) {
       const line = document.createElement('pre');
       line.style.margin = '0';
+      line.style.opacity = 0; // Bắt đầu với opacity 0
+      line.style.whiteSpace = 'pre-wrap'; // Đảm bảo xuống dòng
+      line.style.wordBreak = 'break-word';
+
       if (isBanner) {
         line.classList.add('banner');
+        line.textContent = text;
       } else if (isUserInput) {
         line.classList.add('cmd');
-        line.textContent = `$ ${text}`;
+        line.innerHTML = `<span class="prompt"><span class="user">yuri08</span>@<span class="dir">~/profile</span>$</span> ${text}`;
       } else {
-        line.textContent = text;
+        // Hiệu ứng gõ chữ cho output
+        const tempSpan = document.createElement('span');
+        line.appendChild(tempSpan);
+        let currentText = '';
+        let i = 0;
+        const typingInterval = setInterval(() => {
+          if (i < text.length) {
+            currentText += text.charAt(i);
+            tempSpan.textContent = currentText;
+            i++;
+            // Play typing sound for output
+            playAudio('https://www.soundjay.com/buttons/button-8.mp3', 0.05); // Âm lượng rất nhỏ
+          } else {
+            clearInterval(typingInterval);
+            tempSpan.classList.remove('typing'); // Xóa hiệu ứng con trỏ
+          }
+        }, 30); // Tốc độ gõ chữ
+
+        tempSpan.classList.add('typing'); // Thêm hiệu ứng con trỏ
       }
+      
       terminalOutput.appendChild(line);
-      // Scroll down to bottom
-      terminalBody.scrollTop = terminalBody.scrollHeight;
+      gsap.to(line, { opacity: 1, duration: 0.3, ease: "power1.out" }); // Fade in dòng mới
+      gsap.to(terminalBody, { scrollTop: terminalBody.scrollHeight, duration: 0.5, ease: "power2.out" });
     }
 
     // Handle command input
@@ -618,42 +840,69 @@
           const result = commands[cmd].run(args.slice(1));
           if (result) {
             printToTerminal(result);
+            playAudio('https://www.soundjay.com/buttons/button-9.mp3', 0.3); // Âm thanh thành công
           }
         } catch (e) {
-          printToTerminal(`Lỗi khi thực thi lệnh: ${e.message}`, false, false);
+          printToTerminal(`<span class="error">Lỗi khi thực thi lệnh: ${e.message}</span>`, false, false);
+          playAudio('https://www.soundjay.com/buttons/button-12.mp3', 0.3); // Âm thanh lỗi
         }
       } else {
-        printToTerminal(`Lệnh không hợp lệ: ${cmd}. Gõ 'help' để xem danh sách lệnh.`);
+        printToTerminal(`<span class="error">Lệnh không hợp lệ: ${cmd}. Gõ 'help' để xem danh sách lệnh.</span>`);
+        playAudio('https://www.soundjay.com/buttons/button-12.mp3', 0.3); // Âm thanh lỗi
       }
+      // Clear input after processing
+      terminalInput.value = '';
     }
 
-    // FAQ toggle logic
+    // FAQ toggle logic with GSAP for smooth animation
     document.querySelectorAll('.faq-q').forEach(button => {
       button.addEventListener('click', () => {
         const parent = button.closest('.faq-item');
         const expanded = button.getAttribute('aria-expanded') === 'true';
-        // Toggle
+        const answer = parent.querySelector('.faq-a');
+        
         button.setAttribute('aria-expanded', String(!expanded));
         parent.classList.toggle('open');
-        const answer = parent.querySelector('.faq-a');
+
         if (!expanded) {
           answer.removeAttribute('hidden');
+          gsap.fromTo(answer, { maxHeight: 0, opacity: 0, paddingTop: 0, paddingBottom: 0 }, { 
+            maxHeight: 200, 
+            opacity: 1, 
+            paddingTop: '0.5rem', 
+            paddingBottom: '0.5rem',
+            duration: 0.3, 
+            ease: "power2.out" 
+          });
         } else {
-          answer.setAttribute('hidden', '');
+          gsap.to(answer, { 
+            maxHeight: 0, 
+            opacity: 0, 
+            paddingTop: 0, 
+            paddingBottom: 0,
+            duration: 0.3, 
+            ease: "power2.in", 
+            onComplete: () => answer.setAttribute('hidden', '') 
+          });
         }
+        playAudio(button.dataset.audioSrc);
       });
     });
 
     // Initialize banner on load
     terminalBanner.textContent = bannerText;
+    // Print initial help message
+    printToTerminal("Gõ 'help' để xem danh sách lệnh.", false, false);
+
 
     // Terminal input event
     terminalInput.addEventListener('keydown', e => {
       if (e.key === 'Enter') {
         e.preventDefault();
-        const value = terminalInput.value;
-        handleCommand(value);
-        terminalInput.value = '';
+        handleCommand(terminalInput.value);
+        playAudio('https://www.soundjay.com/buttons/button-5.mp3', 0.2); // Âm thanh khi nhấn Enter
+      } else {
+        playAudio('https://www.soundjay.com/buttons/button-8.mp3', 0.05); // Âm thanh gõ phím
       }
     });
 
@@ -661,6 +910,92 @@
     terminalBody.addEventListener('click', () => terminalInput.focus());
     window.addEventListener('load', () => terminalInput.focus());
 
+    // --- Hiệu ứng 4D: Thêm hiệu ứng âm thanh nhỏ ---
+    function playAudio(src, volume = 0.3) {
+        if (!src) return;
+        const audio = new Audio(src);
+        audio.volume = volume; 
+        audio.play().catch(e => console.error("Lỗi phát âm thanh:", e));
+    }
+
+    // Gắn sự kiện âm thanh cho các phần tử có data-audio-src
+    document.querySelectorAll('[data-audio-src]').forEach(el => {
+        el.addEventListener('click', () => {
+            playAudio(el.dataset.audioSrc);
+        });
+    });
+
+    // Hiệu ứng Parallax (cải tiến)
+    const parallaxContainer = document.querySelector('.parallax-container');
+    if (parallaxContainer) {
+        parallaxContainer.addEventListener('scroll', () => {
+            const scrollPos = parallaxContainer.scrollTop;
+            document.querySelectorAll('.parallax-layer').forEach(layer => {
+                const depth = parseFloat(layer.style.transform.match(/translateZ\(([^)]+)\)/)?.[1] || '0');
+                // Tính toán movement dựa trên độ sâu và vị trí cuộn
+                const movement = -scrollPos * (depth / 1000); // Điều chỉnh tốc độ parallax
+                layer.style.transform = `translateZ(${depth}px) translateY(${movement}px) scale(${1 - depth/1000})`;
+            });
+        });
+    }
+
+    // Hiệu ứng tương tác với chuột cho .glass và .terminal-pro
+    function applyTiltEffect(element) {
+        if (!element) return;
+        const sensitivity = 15; // Độ nhạy của hiệu ứng nghiêng
+
+        element.addEventListener('mousemove', (e) => {
+            const { left, top, width, height } = element.getBoundingClientRect();
+            
+            const centerX = left + width / 2;
+            const centerY = top + height / 2;
+
+            const rotateX = ((centerY - e.clientY) / height) * sensitivity; 
+            const rotateY = ((e.clientX - centerX) / width) * sensitivity; 
+
+            gsap.to(element, {
+                rotationX: rotateX,
+                rotationY: rotateY,
+                duration: 0.5,
+                ease: "power1.out",
+                overwrite: true,
+                transformOrigin: "center center -50px" // Đặt điểm xoay ra phía trước một chút
+            });
+        });
+
+        element.addEventListener('mouseleave', () => {
+            gsap.to(element, {
+                rotationX: 0,
+                rotationY: 0,
+                duration: 0.8,
+                ease: "elastic.out(1, 0.5)",
+                overwrite: true,
+                transformOrigin: "center center -50px"
+            });
+        });
+    }
+
+    applyTiltEffect(document.querySelector('.glass'));
+    applyTiltEffect(document.querySelector('.terminal-pro'));
+    applyTiltEffect(document.querySelector('.faq-section'));
+
+
+    // Thêm hiệu ứng xuất hiện cho các phần tử khi scroll vào tầm nhìn
+    gsap.utils.toArray('.glass, .terminal-pro, .faq-section').forEach(section => {
+        gsap.from(section, {
+            opacity: 0,
+            y: 50,
+            scale: 0.95,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: section,
+                start: "top 85%", 
+                end: "bottom center",
+                toggleActions: "play none none reverse", 
+            }
+        });
+    });
   </script>
 </body>
 </html>
