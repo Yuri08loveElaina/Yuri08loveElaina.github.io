@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>5D C++ Learning UI - Three.js Demo</title>
+<style>
+  /* Reset & cơ bản */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  body, html {
+    height: 100%;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #eee;
+    overflow: hidden;
+  }
+  header {
+    background: #121a26cc;
+    padding: 20px 40px;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    box-shadow: 0 4px 12px #0008;
+  }
+  #container {
+    display: flex;
+    height: calc(100% - 80px);
+  }
+  nav {
+    width: 280px;
+    background: #182533cc;
+    padding: 20px;
+    overflow-y: auto;
+    box-shadow: inset -4px 0 12px #0008;
+  }
+  nav h2 {
+    margin-bottom: 12px;
+    font-weight: 700;
+    border-bottom: 2px solid #06f;
+    padding-bottom: 6px;
+    color: #09f;
+  }
+  nav ul {
+    list-style: none;
+  }
+  nav li {
+    padding: 8px 0;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.3s;
+  }
+  nav li:hover, nav li.active {
+    background: #0961ffaa;
+    color: white;
+  }
+
+  main {
+    flex-grow: 1;
+    background: #202c3eee;
+    padding: 40px;
+    overflow-y: auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  main section {
+    background: #1e293bcc;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 0 15px #0c49ffaa;
+  }
+
+  main h3 {
+    margin-bottom: 14px;
+    color: #06f;
+  }
+  main pre {
+    background: #111a2ccc;
+    padding: 14px;
+    border-radius: 8px;
+    font-family: 'Fira Code', monospace, monospace;
+    overflow-x: auto;
+  }
+
+  #threejs-canvas {
+    width: 100%;
+    height: 300px;
+    border-radius: 12px;
+    box-shadow: 0 0 40px #0c49ffcc;
+  }
+</style>
+</head>
+<body>
+
+<header>5D C++ Learning UI</header>
+
+<div id="container">
+  <nav>
+    <h2>Chương mục</h2>
+    <ul id="menu">
+      <li class="active" data-section="intro">Giới thiệu C++</li>
+      <li data-section="syntax">Cú pháp cơ bản</li>
+      <li data-section="oop">Lập trình hướng đối tượng</li>
+      <li data-section="templates">Templates & STL</li>
+      <li data-section="advanced">Các kỹ thuật nâng cao</li>
+    </ul>
+  </nav>
+
+  <main>
+    <section id="content">
+      <h3>Giới thiệu C++</h3>
+      <p>C++ là ngôn ngữ lập trình mạnh mẽ, hướng đối tượng, thường dùng để phát triển phần mềm hệ thống, game, ứng dụng...</p>
+      <pre><code>// Ví dụ Hello World
+#include &lt;iostream&gt;
+int main() {
+  std::cout &lt;&lt; "Hello, World!" &lt;&lt; std::endl;
+  return 0;
+}
+      </code></pre>
+    </section>
+
+    <canvas id="threejs-canvas"></canvas>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+<script>
+  // Chuyển section menu
+  const menu = document.getElementById('menu');
+  const content = document.getElementById('content');
+
+  const sections = {
+    intro: {
+      title: "Giới thiệu C++",
+      text: "C++ là ngôn ngữ lập trình mạnh mẽ, hướng đối tượng, thường dùng để phát triển phần mềm hệ thống, game, ứng dụng...",
+      code: `// Ví dụ Hello World
+#include <iostream>
+int main() {
+  std::cout << "Hello, World!" << std::endl;
+  return 0;
+}`
+    },
+    syntax: {
+      title: "Cú pháp cơ bản",
+      text: "Các cú pháp cơ bản của C++ bao gồm khai báo biến, vòng lặp, điều kiện, hàm, mảng...",
+      code: `int a = 10;
+if (a > 5) {
+  std::cout << "a lớn hơn 5" << std::endl;
+}
+for (int i=0; i<5; i++) {
+  std::cout << i << " ";
+}`
+    },
+    oop: {
+      title: "Lập trình hướng đối tượng",
+      text: "C++ hỗ trợ OOP với class, object, kế thừa, đa hình, đóng gói...",
+      code: `class Animal {
+public:
+  virtual void sound() {
+    std::cout << "Animal sound" << std::endl;
+  }
+};
+
+class Dog : public Animal {
+public:
+  void sound() override {
+    std::cout << "Woof!" << std::endl;
+  }
+};`
+    },
+    templates: {
+      title: "Templates & STL",
+      text: "Templates cho phép tạo hàm và class tổng quát. STL là thư viện chuẩn với vector, map, set...",
+      code: `template <typename T>
+T add(T a, T b) {
+  return a + b;
+}
+
+#include <vector>
+std::vector<int> v = {1,2,3,4};`
+    },
+    advanced: {
+      title: "Các kỹ thuật nâng cao",
+      text: "Bao gồm quản lý bộ nhớ thủ công, con trỏ, đa luồng, lập trình mẫu nâng cao...",
+      code: `#include <thread>
+void worker() {
+  std::cout << "Thread running" << std::endl;
+}
+
+int main() {
+  std::thread t(worker);
+  t.join();
+  return 0;
+}`
+    }
+  };
+
+  menu.addEventListener('click', e => {
+    if(e.target.tagName === 'LI'){
+      Array.from(menu.children).forEach(li => li.classList.remove('active'));
+      e.target.classList.add('active');
+      const sec = e.target.getAttribute('data-section');
+      const data = sections[sec];
+      content.innerHTML = \`
+        <h3>\${data.title}</h3>
+        <p>\${data.text}</p>
+        <pre><code>\${data.code}</code></pre>
+      \`;
+    }
+  });
+
+  // Three.js đơn giản: khối hộp xoay
+  const canvas = document.getElementById('threejs-canvas');
+  const renderer = new THREE.WebGLRenderer({canvas, antialias: true, alpha:true});
+  renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+  camera.position.z = 5;
+
+  // Ánh sáng
+  const light = new THREE.DirectionalLight(0xffffff, 1);
+  light.position.set(0,1,1);
+  scene.add(light);
+
+  // Hình hộp 3D
+  const geometry = new THREE.BoxGeometry(1.5, 1.5, 1.5);
+  const material = new THREE.MeshPhongMaterial({color: 0x0099ff, shininess: 80});
+  const cube = new THREE.Mesh(geometry, material);
+  scene.add(cube);
+
+  function animate(){
+    requestAnimationFrame(animate);
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // Resize canvas khi cửa sổ thay đổi
+  window.addEventListener('resize', () => {
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    renderer.setSize(width, height);
+    camera.aspect = width/height;
+    camera.updateProjectionMatrix();
+  });
+</script>
+
+</body>
+</html>
